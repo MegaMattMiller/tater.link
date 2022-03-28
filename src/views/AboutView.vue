@@ -1,3 +1,17 @@
+<script lang="ts">
+import { onBeforeMount } from "vue";
+import { linkStore } from "@/stores/linkStore";
+
+export default {
+  setup() {
+    onBeforeMount(() => {
+      const mainStore = linkStore();
+      mainStore.getData("tater");
+    });
+  },
+};
+</script>
+
 <template>
   <div class="about">
     <h1>{{ $route.params.username }}</h1>
