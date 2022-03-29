@@ -3,6 +3,7 @@ import { onBeforeMount, ref, computed } from 'vue';
 import { linkStore } from '@/stores/linkStore';
 import { useRoute, useRouter } from 'vue-router';
 import SocialBadge from '@/components/SocialBadge.vue';
+import LinkButton from '@/components/LinkButton.vue';
 
 const store = linkStore();
 const route = useRoute();
@@ -18,6 +19,11 @@ onBeforeMount(() => {
 
 const imagePath = computed(() => {
   return `/avatars/${store.data.iconGuid}.png`;
+});
+
+const showButtons = computed(() => {
+  if (store.data.buttons.length > 0) return true;
+  return false;
 });
 
 const gradientFactory = computed(() => {
@@ -48,7 +54,13 @@ const gradientFactory = computed(() => {
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
     <h2 v-if="store.data.desc != ''" class="desc nodrag">{{ store.data.desc }}</h2>
-    <div class="social-container">
+    <div class="social-container" v-if="store.data.linkOnTop">
+      <SocialBadge v-for="(item, index) in store.data.links" v-bind:key="index" :data="item" />
+    </div>
+    <div class="button-container" v-if="showButtons">
+      <LinkButton v-for="(item, index) in store.data.buttons" v-bind:key="index" :data="item" />
+    </div>
+    <div class="social-container" v-if="!store.data.linkOnTop">
       <SocialBadge v-for="(item, index) in store.data.links" v-bind:key="index" :data="item" />
     </div>
   </div>
@@ -56,6 +68,10 @@ const gradientFactory = computed(() => {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
+
+body {
+  overflow-x: hidden;
+}
 
 .nodrag {
   user-drag: none;
@@ -78,6 +94,7 @@ const gradientFactory = computed(() => {
   font-family: 'Karla', sans-serif;
   text-align: center;
   color: #f9f9f9;
+  margin-bottom: 10px;
 }
 
 .desc {
@@ -90,7 +107,7 @@ const gradientFactory = computed(() => {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 }
 
@@ -101,5 +118,15 @@ const gradientFactory = computed(() => {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.button-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 20px;
 }
 </style>
