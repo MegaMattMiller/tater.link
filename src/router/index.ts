@@ -1,19 +1,23 @@
 /* eslint-disable prettier/prettier */
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: HomeView,
+      path: '/',
+      name: 'home',
+      component: () => import('../views/NotFoundView.vue'),
     },
     {
-      path: "/:username",
-      name: "card",
-      component: () => import("../views/CardView.vue"),
+      path: '/nouser',
+      name: 'nouser',
+      component: () => import('../views/NotFoundView.vue'),
+    },
+    {
+      path: '/:username',
+      name: 'card',
+      component: () => import('../views/CardView.vue'),
     },
   ],
 });

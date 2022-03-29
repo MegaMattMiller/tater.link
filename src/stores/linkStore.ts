@@ -22,8 +22,12 @@ export const linkStore = defineStore({
         domain: 'db.us.fauna.com',
         scheme: 'https',
       });
-      const retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
-      this.data = retData.data;
+      try {
+        const retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
+        this.data = retData.data;
+      } catch (e) {
+        this.data = undefined;
+      }
     },
   },
 });

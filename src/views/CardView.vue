@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, computed } from 'vue';
 import { linkStore } from '@/stores/linkStore';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import SocialBadge from '@/components/SocialBadge.vue';
 
 const store = linkStore();
 const route = useRoute();
+const router = useRouter();
 let loading = ref(true);
 
 onBeforeMount(() => {
   store.getData(route.params.username as string).then(() => {
+    if (store.data == undefined) router.push('/nouser');
     loading.value = false;
   });
 });
@@ -22,6 +25,9 @@ const imagePath = computed(() => {
   <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor }">
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
+    <div class="social-container">
+      <SocialBadge v-for="(item, index) in store.data.links" v-bind:key="index" :data="item" />
+    </div>
   </div>
 </template>
 
@@ -57,5 +63,14 @@ const imagePath = computed(() => {
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+}
+
+.social-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 </style>
