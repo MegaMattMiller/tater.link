@@ -19,10 +19,32 @@ onBeforeMount(() => {
 const imagePath = computed(() => {
   return `/avatars/${store.data.iconGuid}.png`;
 });
+
+const gradientFactory = computed(() => {
+  let direction = 'to bottom'
+  switch(store.data.gradient) {
+    case 0:
+      direction = 'to bottom';
+      break;
+    case 1:
+      direction = 'to right';
+      break;
+    case 2:
+      direction = 'to top';
+      break;
+    case 3:
+      direction = 'to left';
+      break;
+    default:
+      direction = 'to bottom';
+      break;
+  }
+  return `linear-gradient(${direction}, #${store.data.bgColor}, #${store.data.bgColorAlt})`;
+});
 </script>
 
 <template>
-  <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor }">
+  <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor, backgroundImage: gradientFactory }">
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
     <div class="social-container">
