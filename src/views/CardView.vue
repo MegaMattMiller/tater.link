@@ -47,6 +47,7 @@ const gradientFactory = computed(() => {
   <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor, backgroundImage: gradientFactory }">
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
+    <h2 v-if="store.data.desc != ''" class="desc nodrag">{{ store.data.desc }}</h2>
     <div class="social-container">
       <SocialBadge v-for="(item, index) in store.data.links" v-bind:key="index" :data="item" />
     </div>
@@ -76,7 +77,13 @@ const gradientFactory = computed(() => {
 .username {
   font-family: 'Karla', sans-serif;
   text-align: center;
-  margin-top: 20px;
+  color: #f9f9f9;
+}
+
+.desc {
+  font-family: 'Karla', sans-serif;
+  text-align: center;
+  margin-top: 0;
   color: #f9f9f9;
 }
 
