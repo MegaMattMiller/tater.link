@@ -1,35 +1,31 @@
-<script lang="ts">
-import { onBeforeMount, ref } from "vue";
-import { linkStore } from "@/stores/linkStore";
+<script setup lang="ts">
+import { onBeforeMount, ref, computed } from 'vue'
+import { linkStore } from '@/stores/linkStore'
 import { useRoute } from 'vue-router'
 
-export default {
-  asyncData({ $pinia }) {
-    const store = linkStore($pinia)
-  },
-  setup() {
-    const store = linkStore()
-    const route = useRoute()
-    let loading = ref(true)
-    onBeforeMount(() => {
-      store.getData(route.params.username as string).then(() => {
-        loading = false
-      })
-    });
-    return { store }
-  },
-  computed: {
-    imagePath() {
-      return `/avatars/${this.store.data.iconGuid}.png`;
-    },
-  }
-};
+const store = linkStore()
+const route = useRoute()
+let loading = ref(true)
+
+onBeforeMount(() => {
+  store.getData(route.params.username as string).then(() => {
+    loading.value = false
+  })
+})
+
+const imagePath = computed(() => {
+  return `/avatars/${store.data.iconGuid}.png`
+})
 </script>
 
 <template>
-  <div v-if="!loading" class="container" :style="{backgroundColor: '#' + store.data.bgColor}">
-    <img :src="imagePath" class="avatar" />
-    <h1 class="username">{{ store.data.displayName }}</h1>
+  <div
+    v-if="!loading"
+    class="container"
+    :style="{ backgroundColor: '#' + store.data.bgColor }"
+  >
+    <img :src="imagePath" class="avatar nodrag" />
+    <h1 class="username nodrag">{{ store.data.displayName }}</h1>
   </div>
 </template>
 

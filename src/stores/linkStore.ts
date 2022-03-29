@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { defineStore } from "pinia";
 import faunadb, { query as q } from 'faunadb'
 
@@ -25,7 +24,6 @@ export const linkStore = defineStore({
       })
       let retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
       this.data = retData.data;
-      console.log('data: ', this.data);
     }
   },
 });
