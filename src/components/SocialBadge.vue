@@ -12,10 +12,21 @@ const iconData = computed(() => {
       return ['fas', 'otter'];
   }
 });
+
+const altTextFactory = computed(() => {
+  switch (props.data.icon) {
+    case 0:
+      return 'Link to Twitter';
+    case 1:
+      return 'Link to Instagram';
+    default:
+      return 'Link to Website';
+  }
+});
 </script>
 
 <template>
-  <a :href="props.data.url" target="_blank">
+  <a :href="props.data.url" target="_blank" tabindex="0" :alt="altTextFactory">
     <font-awesome-icon class="social nodrag" :icon="iconData" />
   </a>
 </template>
