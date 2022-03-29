@@ -8,6 +8,8 @@ const iconData = computed(() => {
       return ['fab', 'twitter'];
     case 1:
       return ['fab', 'instagram'];
+    case 2:
+      return ['fab', 'youtube'];
     default:
       return ['fas', 'otter'];
   }
@@ -19,6 +21,8 @@ const altTextFactory = computed(() => {
       return 'Link to Twitter';
     case 1:
       return 'Link to Instagram';
+    case 2:
+      return 'Link to YouTube';
     default:
       return 'Link to Website';
   }
