@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, computed } from 'vue'
-import { linkStore } from '@/stores/linkStore'
-import { useRoute } from 'vue-router'
+import { onBeforeMount, ref, computed } from 'vue';
+import { linkStore } from '@/stores/linkStore';
+import { useRoute } from 'vue-router';
 
-const store = linkStore()
-const route = useRoute()
-let loading = ref(true)
+const store = linkStore();
+const route = useRoute();
+let loading = ref(true);
 
 onBeforeMount(() => {
   store.getData(route.params.username as string).then(() => {
-    loading.value = false
-  })
-})
+    loading.value = false;
+  });
+});
 
 const imagePath = computed(() => {
-  return `/avatars/${store.data.iconGuid}.png`
-})
+  return `/avatars/${store.data.iconGuid}.png`;
+});
 </script>
 
 <template>
-  <div
-    v-if="!loading"
-    class="container"
-    :style="{ backgroundColor: '#' + store.data.bgColor }"
-  >
-    <img :src="imagePath" class="avatar nodrag" />
+  <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor }">
+    <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
   </div>
 </template>

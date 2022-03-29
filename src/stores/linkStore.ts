@@ -1,29 +1,29 @@
-import { defineStore } from "pinia";
-import faunadb, { query as q } from 'faunadb'
+import { defineStore } from 'pinia';
+import faunadb, { query as q } from 'faunadb';
 
 class Response {
-  data: object
+  data: object;
 
   constructor() {
-    this.data = {}
+    this.data = {};
   }
 }
 
 export const linkStore = defineStore({
-  id: "linkStore",
+  id: 'linkStore',
   state: () => ({
     data: {},
   }),
   actions: {
     async getData(username: string) {
       console.log('username', username);
-      var adminClient = new faunadb.Client({
+      const adminClient = new faunadb.Client({
         secret: import.meta.env.VITE_APP_APP_TOKEN as string,
         domain: 'db.us.fauna.com',
         scheme: 'https',
-      })
-      let retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
+      });
+      const retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
       this.data = retData.data;
-    }
+    },
   },
 });
