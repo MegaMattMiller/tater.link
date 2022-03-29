@@ -30,6 +30,17 @@ const imagePath = computed(() => {
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
+
+.nodrag {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 .avatar {
   width: 100px;
   height: auto;
@@ -39,9 +50,10 @@ const imagePath = computed(() => {
 }
 
 .username {
+  font-family: 'Karla', sans-serif;
   text-align: center;
   margin-top: 20px;
-  color: #f9f9f9
+  color: #f9f9f9;
 }
 
 .container {
