@@ -18,6 +18,7 @@ export const linkStore = defineStore("linkStore", () => {
         data.value = retData.data;
         foundData.value = true;
       } catch (e) {
+        console.log('error', e);
         data.value = {};
         foundData.value = false;
       }
