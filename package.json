@@ -16,7 +16,9 @@
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@types/netlify-identity-widget": "^1.9.3",
     "faunadb": "^4.5.2",
+    "netlify-identity-widget": "^1.9.2",
     "pinia": "^2.0.11",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"

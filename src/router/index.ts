@@ -7,12 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/NotFoundView.vue'),
+      component: () => import('../views/AccountView.vue'),
     },
     {
       path: '/nouser',
       name: 'nouser',
       component: () => import('../views/NotFoundView.vue'),
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('../views/AccountView.vue'),
     },
     {
       path: '/:username',

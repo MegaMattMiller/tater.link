@@ -12,7 +12,7 @@ let loading = ref(true);
 
 onBeforeMount(() => {
   store.getData(route.params.username as string).then(() => {
-    if (store.data == undefined) router.push('/nouser');
+    if (store.foundData == false) router.push('/nouser');
     loading.value = false;
   });
 });
