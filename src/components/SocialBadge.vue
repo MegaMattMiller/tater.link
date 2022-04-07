@@ -42,8 +42,8 @@ const altTextFactory = computed(() => {
 </script>
 
 <template>
-  <a :href="props.data.url" target="_blank" tabindex="0" :alt="altTextFactory">
-    <font-awesome-icon class="social nodrag" :icon="iconData" />
+  <a :href="props.data.url" target="_blank">
+    <font-awesome-icon class="social nodrag hvr-grow" :icon="iconData" />
   </a>
 </template>
 

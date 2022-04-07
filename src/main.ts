@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { FontAwesomeIcon } from '@/utilities/fontawesome';
+import FontAwesomeIcon from './utilities/fontawesome';
 
 import App from './App.vue';
 import router from './router';

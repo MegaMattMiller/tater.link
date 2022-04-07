@@ -27,8 +27,8 @@ const showButtons = computed(() => {
 });
 
 const gradientFactory = computed(() => {
-  let direction = 'to bottom'
-  switch(store.data.gradient) {
+  let direction = 'to bottom';
+  switch (store.data.gradient) {
     case 0:
       direction = 'to bottom';
       break;
@@ -50,7 +50,11 @@ const gradientFactory = computed(() => {
 </script>
 
 <template>
-  <div v-if="!loading" class="container" :style="{ backgroundColor: '#' + store.data.bgColor, backgroundImage: gradientFactory }">
+  <div
+    v-if="!loading"
+    class="container"
+    :style="{ backgroundColor: '#' + store.data.bgColor, backgroundImage: gradientFactory }"
+  >
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ store.data.displayName }}</h1>
     <h2 v-if="store.data.desc != ''" class="desc nodrag">{{ store.data.desc }}</h2>
@@ -71,15 +75,6 @@ const gradientFactory = computed(() => {
 
 body {
   overflow-x: hidden;
-}
-
-.nodrag {
-  user-drag: none;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .avatar {
