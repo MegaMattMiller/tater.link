@@ -6,8 +6,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('../views/NotFoundView.vue'),
+      redirect: to => {
+        return { path: '/tater'}
+      },
     },
     {
       path: '/nouser',
