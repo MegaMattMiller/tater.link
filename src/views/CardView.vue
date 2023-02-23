@@ -4,6 +4,7 @@ import { linkStore } from '@/stores/linkStore';
 import { useRoute, useRouter } from 'vue-router';
 import SocialBadge from '@/components/SocialBadge.vue';
 import LinkButton from '@/components/LinkButton.vue';
+import { GradientDirections } from '@/utils/enums';
 
 const store = linkStore();
 const route = useRoute();
@@ -29,16 +30,16 @@ const showButtons = computed(() => {
 const gradientFactory = computed(() => {
   let direction = 'to bottom';
   switch (store.data?.gradient) {
-    case 0:
+    case GradientDirections.toBottom:
       direction = 'to bottom';
       break;
-    case 1:
+    case GradientDirections.toRight:
       direction = 'to right';
       break;
-    case 2:
+    case GradientDirections.toTop:
       direction = 'to top';
       break;
-    case 3:
+    case GradientDirections.toLeft:
       direction = 'to left';
       break;
     default:

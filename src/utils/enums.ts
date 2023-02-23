@@ -7,4 +7,11 @@ enum SocialTypes {
   Email,
 }
 
-export { SocialTypes };
+enum GradientDirections {
+  toBottom,
+  toRight,
+  toTop,
+  toLeft,
+}
+
+export { SocialTypes, GradientDirections };
