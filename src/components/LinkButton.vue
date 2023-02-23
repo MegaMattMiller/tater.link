@@ -10,7 +10,6 @@
 
 <script setup lang="ts">
 import type { Button } from '../stores/linkStore';
-// import { computed } from 'vue';
 defineProps<{
   data: Button;
 }>();

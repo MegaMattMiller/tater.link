@@ -1,5 +1,5 @@
 <template>
-  <a :href="data.url" target="_blank">
+  <a :href="data.url" target="_blank" :aria-label="altTextFactory">
     <font-awesome-icon class="social nodrag hvr-grow" :icon="iconData" />
   </a>
 </template>
