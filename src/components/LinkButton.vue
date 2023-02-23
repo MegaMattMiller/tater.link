@@ -52,7 +52,4 @@ p {
   font-size: clamp(20px, 8vw, 30px);
   vertical-align: baseline;
 }
-
-.button {
-}
 </style>
