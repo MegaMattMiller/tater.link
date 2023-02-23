@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Link } from '../stores/linkStore';
-import { SocialTypes } from '../utils/enums';
+import type { Link } from '@/stores/linkStore';
+import { SocialTypes } from '@/utils/enums';
 
 const props = defineProps<{
   data: Link;

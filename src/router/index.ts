@@ -13,12 +13,12 @@ const router = createRouter({
     {
       path: '/nouser',
       name: 'nouser',
-      component: () => import('../views/NotFoundView.vue'),
+      component: () => import('@/views/NotFoundView.vue'),
     },
     {
       path: '/:username',
       name: 'card',
-      component: () => import('../views/CardView.vue'),
+      component: () => import('@/views/CardView.vue'),
     },
   ],
 });
