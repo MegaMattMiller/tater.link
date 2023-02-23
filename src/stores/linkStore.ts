@@ -7,7 +7,7 @@ export const linkStore = defineStore('linkStore', () => {
   const foundData = ref(false);
 
   const getData = async (username: string) => {
-    console.log('username', username);
+    // console.log('username', username);
     const adminClient = new faunadb.Client({
       secret: import.meta.env.VITE_APP_APP_TOKEN as string,
       domain: 'db.us.fauna.com',
