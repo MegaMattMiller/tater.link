@@ -1,20 +1,31 @@
+<template>
+  <a :href="data.url" target="_blank">
+    <font-awesome-icon class="social nodrag hvr-grow" :icon="iconData" />
+  </a>
+</template>
+
 <script setup lang="ts">
 import { computed } from 'vue';
-const props = defineProps(['data']);
+import type { Link } from '../stores/linkStore';
+import { SocialTypes } from '../utils/enums';
+
+const props = defineProps<{
+  data: Link;
+}>();
 
 const iconData = computed(() => {
   switch (props.data.icon) {
-    case 0:
+    case SocialTypes.Twitter:
       return ['fab', 'twitter'];
-    case 1:
+    case SocialTypes.Instagram:
       return ['fab', 'instagram'];
-    case 2:
+    case SocialTypes.YouTube:
       return ['fab', 'youtube'];
-    case 3:
+    case SocialTypes.Patreon:
       return ['fab', 'patreon'];
-    case 4:
+    case SocialTypes.Twitch:
       return ['fab', 'twitch'];
-    case 5:
+    case SocialTypes.Email:
       return ['fas', 'envelope'];
     default:
       return ['fas', 'otter'];
@@ -23,29 +34,23 @@ const iconData = computed(() => {
 
 const altTextFactory = computed(() => {
   switch (props.data.icon) {
-    case 0:
+    case SocialTypes.Twitter:
       return 'Link to Twitter';
-    case 1:
+    case SocialTypes.Instagram:
       return 'Link to Instagram';
-    case 2:
+    case SocialTypes.YouTube:
       return 'Link to YouTube';
-    case 3:
+    case SocialTypes.Patreon:
       return 'Link to Patreon';
-    case 4:
+    case SocialTypes.Twitch:
       return 'Link to Twitch';
-    case 5:
+    case SocialTypes.Email:
       return 'Link to Email';
     default:
       return 'Link to Website';
   }
 });
 </script>
-
-<template>
-  <a :href="props.data.url" target="_blank">
-    <font-awesome-icon class="social nodrag hvr-grow" :icon="iconData" />
-  </a>
-</template>
 
 <style scoped>
 .social {

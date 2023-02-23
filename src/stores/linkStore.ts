@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import faunadb, { query as q } from 'faunadb';
 
 export const linkStore = defineStore('linkStore', () => {
-  const data = ref({});
+  const data = ref<UserData>();
   const foundData = ref(false);
 
   const getData = async (username: string) => {
@@ -15,11 +15,11 @@ export const linkStore = defineStore('linkStore', () => {
     });
     try {
       const retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
-      data.value = retData.data;
+      data.value = retData.data as UserData;
       foundData.value = true;
     } catch (e) {
       console.log('error', e);
-      data.value = {};
+      data.value = undefined;
       foundData.value = false;
     }
   };
@@ -30,6 +30,32 @@ export const linkStore = defineStore('linkStore', () => {
     getData,
   };
 });
+
+interface UserData {
+  readonly active: boolean;
+  readonly name: string;
+  readonly displayName: string;
+  readonly desc: string;
+  readonly bgColor: string;
+  readonly bgColorAlt: string;
+  readonly gradient: number;
+  readonly iconGuid: string;
+  readonly linksOnTop: boolean;
+  readonly links: Array<Link>;
+  readonly buttons: Array<Button>;
+}
+
+interface Link {
+  readonly url: string;
+  readonly icon: number;
+}
+
+interface Button {
+  readonly url: string;
+  readonly text: string;
+}
+
+export { type UserData, type Link, type Button };
 
 class Response {
   data: object;

@@ -16,7 +16,7 @@ const name = computed(() => {
 
 <template>
   <main class="container">
-    <h1 class="username">User not found</h1>
+    <h1 class="username">{{ name }}</h1>
   </main>
 </template>
 

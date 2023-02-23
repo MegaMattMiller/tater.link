@@ -1,17 +1,20 @@
-<script setup lang="ts">
-// import { computed } from 'vue';
-const props = defineProps(['data']);
-</script>
-
 <template>
-  <a :href="props.data.url" target="_blank" tabindex="0" :alt="props.data.text">
+  <a :href="data.url" target="_blank" tabindex="0" :alt="data.text">
     <div class="button-wrapper">
       <p class="button-text">
-        {{ props.data.text }}
+        {{ data.text }}
       </p>
     </div>
   </a>
 </template>
+
+<script setup lang="ts">
+import type { Button } from '../stores/linkStore';
+// import { computed } from 'vue';
+defineProps<{
+  data: Button;
+}>();
+</script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
