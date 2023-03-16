@@ -6,14 +6,13 @@ import { RouterView } from 'vue-router';
   <RouterView />
 </template>
 
-<style>
+<style lang="scss">
 body {
   padding: 0;
   margin: 0;
 }
 
 .nodrag {
-  user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
