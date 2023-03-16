@@ -1,6 +1,6 @@
 <template>
   <a :href="data.url" target="_blank" :aria-label="altTextFactory">
-    <font-awesome-icon class="social nodrag hvr-grow" :icon="iconData" />
+    <Icon class="social nodrag hvr-grow" :icon="iconData" />
   </a>
 </template>
 
@@ -8,6 +8,7 @@
 import { computed } from 'vue';
 import type { Link } from '@/stores/linkStore';
 import { SocialTypes } from '@/utils/enums';
+import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
   data: Link;
@@ -16,19 +17,19 @@ const props = defineProps<{
 const iconData = computed(() => {
   switch (props.data.icon) {
     case SocialTypes.Twitter:
-      return ['fab', 'twitter'];
+      return 'fa6-brands:twitter';
     case SocialTypes.Instagram:
-      return ['fab', 'instagram'];
+      return 'fa6-brands:instagram';
     case SocialTypes.YouTube:
-      return ['fab', 'youtube'];
+      return 'fa6-brands:youtube';
     case SocialTypes.Patreon:
-      return ['fab', 'patreon'];
+      return 'fa6-brands:patreon';
     case SocialTypes.Twitch:
-      return ['fab', 'twitch'];
+      return 'fa6-brands:twitch';
     case SocialTypes.Email:
-      return ['fas', 'envelope'];
+      return 'fa6-regular:envelope';
     default:
-      return ['fas', 'otter'];
+      return 'bi:globe';
   }
 });
 
