@@ -28,6 +28,8 @@ const iconData = computed(() => {
       return 'fa6-brands:twitch';
     case SocialTypes.Email:
       return 'fa6-regular:envelope';
+    case SocialTypes.Mastodon:
+      return 'fa6-brands:mastodon';
     default:
       return 'bi:globe';
   }
@@ -47,6 +49,8 @@ const altTextFactory = computed(() => {
       return 'Link to Twitch';
     case SocialTypes.Email:
       return 'Link to Email';
+    case SocialTypes.Mastodon:
+      return 'Link to Mastodon';
     default:
       return 'Link to Website';
   }
