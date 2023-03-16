@@ -79,8 +79,8 @@ body {
 }
 
 .avatar {
-  width: 100px;
-  height: auto;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   margin: 0 auto;
   margin-top: 20px;
