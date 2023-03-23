@@ -22,20 +22,27 @@ import SocialBadge from '@/components/SocialBadge.vue';
 import LinkButton from '@/components/LinkButton.vue';
 import { GradientDirections } from '@/utils/enums';
 
-const props = defineProps(['data']);
+// const props = defineProps(['data']);
+
+const props = defineProps({
+  data: {
+    type: Object as PropType<UserData | undefined>,
+    required: true,
+  },
+});
 
 const imagePath = computed(() => {
-  return `/avatars/${props.data.iconGuid}.png`;
+  return `/avatars/${props.data?.iconGuid}.png`;
 });
 
 const showButtons = computed(() => {
-  if (props.data.buttons.length ?? 0 > 0) return true;
+  if (props.data?.buttons.length ?? 0 > 0) return true;
   return false;
 });
 
 const gradientFactory = computed(() => {
   let direction = 'to bottom';
-  switch (props.data.gradient) {
+  switch (props.data?.gradient) {
     case GradientDirections.toBottom:
       direction = 'to bottom';
       break;
@@ -52,7 +59,7 @@ const gradientFactory = computed(() => {
       direction = 'to bottom';
       break;
   }
-  return `linear-gradient(${direction}, #${props.data.bgColor}, #${props.data.bgColorAlt})`;
+  return `linear-gradient(${direction}, #${props.data?.bgColor}, #${props.data?.bgColorAlt})`;
 });
 </script>
 
