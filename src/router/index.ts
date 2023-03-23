@@ -6,9 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: (to) => {
-        return { path: '/tater' };
-      },
+      component: () => import('@/views/HomeView.vue'),
     },
     {
       path: '/nouser',
@@ -19,6 +17,18 @@ const router = createRouter({
       path: '/:username',
       name: 'card',
       component: () => import('@/views/CardView.vue'),
+    },
+    {
+      path: '/register',
+      component: () => import('@/views/RegisterView.vue'),
+    },
+    {
+      path: '/sign-in',
+      component: () => import('@/views/SignInView.vue'),
+    },
+    {
+      path: '/edit',
+      component: () => import('@/views/EditView.vue'),
     },
   ],
 });

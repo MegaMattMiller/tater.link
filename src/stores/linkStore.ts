@@ -1,33 +1,43 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import faunadb, { query as q } from 'faunadb';
+import { getFirestore, collection, query, where, getDocs, limit } from "firebase/firestore";
 
 export const linkStore = defineStore('linkStore', () => {
   const data = ref<UserData>();
   const foundData = ref(false);
 
-  const getData = async (username: string) => {
-    // console.log('username', username);
-    const adminClient = new faunadb.Client({
-      secret: import.meta.env.VITE_APP_APP_TOKEN as string,
-      domain: 'db.us.fauna.com',
-      scheme: 'https',
+  const firestore = getFirestore();
+
+  const getDataForCardName = async (cardName: string) => {
+    let foundCard: UserData | undefined = undefined;
+    const cardsRef = collection(firestore, 'cards');
+    const q = query(cardsRef, where("name", "==", cardName), limit(1));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      foundCard = doc.data() as UserData;
     });
-    try {
-      const retData: Response = await adminClient.query(q.Get(q.Match(q.Index('cards_by_name'), username)));
-      data.value = retData.data as UserData;
-      foundData.value = true;
-    } catch (e) {
-      console.log('error', e);
-      data.value = undefined;
-      foundData.value = false;
-    }
+    console.log('foundCard', foundCard)
+    data.value = foundCard;
+  };
+
+  const getDataForUserUID = async (uid: string) => {
+    let foundCard: UserData | undefined = undefined;
+    const cardsRef = collection(firestore, 'cards');
+    const q = query(cardsRef, where("user", "==", uid), limit(1));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      foundCard = doc.data() as UserData;
+    });
+    console.log('foundCard', foundCard)
+    data.value = foundCard;
   };
 
   return {
     data,
     foundData,
-    getData,
+    getDataForCardName,
   };
 });
 

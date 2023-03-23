@@ -11,12 +11,10 @@ const route = useRoute();
 const router = useRouter();
 let loading = ref(true);
 
-onBeforeMount(() => {
-  store.getData(route.params.username as string).then(() => {
-    if (store.data == undefined) router.push('/nouser');
-    loading.value = false;
-  });
-});
+async function getData() {
+  await store.getDataForCardName(route.params.username as string);
+  loading.value = false;
+}
 
 const imagePath = computed(() => {
   return `/avatars/${store.data?.iconGuid}.png`;
@@ -48,6 +46,8 @@ const gradientFactory = computed(() => {
   }
   return `linear-gradient(${direction}, #${store.data?.bgColor}, #${store.data?.bgColorAlt})`;
 });
+
+getData();
 </script>
 
 <template>
