@@ -1,77 +1,34 @@
+<template>
+  <div v-if="!loading">
+    <UserCard :data="data" />
+  </div>
+</template>
+
 <script setup lang="ts">
-import { onBeforeMount, ref, computed } from 'vue';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { linkStore } from '@/stores/linkStore';
 import { useRoute, useRouter } from 'vue-router';
-import SocialBadge from '@/components/SocialBadge.vue';
-import LinkButton from '@/components/LinkButton.vue';
-import { GradientDirections } from '@/utils/enums';
+
+import UserCard from '@/components/UserCard.vue';
 
 const store = linkStore();
 const route = useRoute();
 const router = useRouter();
 let loading = ref(true);
 
+const { data } = storeToRefs(store);
+
 async function getData() {
   await store.getDataForCardName(route.params.username as string);
+  if (data.value == null || data.value == undefined) router.push(`/nouser/${route.params.username}`);
   loading.value = false;
 }
-
-const imagePath = computed(() => {
-  return `/avatars/${store.data?.iconGuid}.png`;
-});
-
-const showButtons = computed(() => {
-  if (store.data?.buttons.length ?? 0 > 0) return true;
-  return false;
-});
-
-const gradientFactory = computed(() => {
-  let direction = 'to bottom';
-  switch (store.data?.gradient) {
-    case GradientDirections.toBottom:
-      direction = 'to bottom';
-      break;
-    case GradientDirections.toRight:
-      direction = 'to right';
-      break;
-    case GradientDirections.toTop:
-      direction = 'to top';
-      break;
-    case GradientDirections.toLeft:
-      direction = 'to left';
-      break;
-    default:
-      direction = 'to bottom';
-      break;
-  }
-  return `linear-gradient(${direction}, #${store.data?.bgColor}, #${store.data?.bgColorAlt})`;
-});
 
 getData();
 </script>
 
-<template>
-  <div
-    v-if="!loading"
-    class="container"
-    :style="{ backgroundColor: '#' + store.data?.bgColor, backgroundImage: gradientFactory }"
-  >
-    <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
-    <h1 class="username nodrag">{{ store.data?.displayName }}</h1>
-    <h2 v-if="store.data?.desc != ''" class="desc nodrag">{{ store.data?.desc }}</h2>
-    <div class="social-container" v-if="store.data?.linksOnTop">
-      <SocialBadge v-for="(item, index) in store.data.links" v-bind:key="index" :data="item" />
-    </div>
-    <div class="button-container" v-if="showButtons">
-      <LinkButton v-for="(item, index) in store.data?.buttons" v-bind:key="index" :data="item" />
-    </div>
-    <div class="social-container" v-if="!store.data?.linksOnTop">
-      <SocialBadge v-for="(item, index) in store.data?.links" v-bind:key="index" :data="item" />
-    </div>
-  </div>
-</template>
-
-<style>
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
 
 body {

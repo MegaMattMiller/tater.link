@@ -1,16 +1,5 @@
 <template>
   <div>
-    <nav>
-      <router-link to="/"> Home </router-link> |
-      <span> <router-link to="/edit"> Edit </router-link> | </span>
-      <span v-if="isLoggedIn">
-        <button @click="handleSignOut">Logout</button>
-      </span>
-      <span v-else>
-        <router-link to="/register"> Register </router-link> |
-        <router-link to="/sign-in"> Login </router-link>
-      </span>
-    </nav>
     <router-view />
   </div>
 </template>
