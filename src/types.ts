@@ -1,6 +1,6 @@
 interface UserData {
-  readonly active: boolean;
-  readonly name: string;
+  active: boolean;
+  name: string;
   displayName: string;
   desc: string;
   bgColor: string;
@@ -10,7 +10,7 @@ interface UserData {
   linksOnTop: boolean;
   links: Array<Link>;
   buttons: Array<Button>;
-  readonly user: string;
+  user: string;
 }
 
 interface Link {

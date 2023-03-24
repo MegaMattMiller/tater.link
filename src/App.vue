@@ -34,9 +34,12 @@ const handleSignOut = () => {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
+
 body {
   padding: 0;
   margin: 0;
+  font-family: 'Karla', sans-serif;
 }
 
 .nodrag {

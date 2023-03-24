@@ -1,9 +1,19 @@
 <template>
-  <h1>Login to Your Account</h1>
-  <p><input type="text" placeholder="Email" v-model="email" /></p>
-  <p><input type="password" placeholder="Password" v-model="password" /></p>
-  <p v-if="errMsg">{{ errMsg }}</p>
-  <p><button @click="signIn">Submit</button></p>
+  <div class="form-wrapper">
+    <h1>Login to Your Account</h1>
+    <p v-if="errMsg" class="error">{{ errMsg }}</p>
+    <FormKit type="form" @submit="signIn" submit-label="Login">
+      <FormKit type="text" name="email" id="email" label="Email" validation="required|email" v-model="email" />
+      <FormKit
+        type="password"
+        name="password"
+        id="password"
+        label="Password"
+        validation="required"
+        v-model="password"
+      />
+    </FormKit>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -27,14 +37,8 @@ const signIn = () => {
     .catch((error) => {
       switch (error.code) {
         case 'auth/invalid-email':
-          errMsg.value = 'Invalid email';
-          break;
         case 'auth/user-not-found':
-          errMsg.value = 'No account with that email was found';
-          break;
         case 'auth/wrong-password':
-          errMsg.value = 'Incorrect password';
-          break;
         default:
           errMsg.value = 'Email or password was incorrect';
           break;
@@ -42,3 +46,14 @@ const signIn = () => {
     });
 };
 </script>
+
+<style lang="scss" scoped>
+.form-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.error {
+  color: red;
+}
+</style>

@@ -4,7 +4,9 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { plugin, defaultConfig } from '@formkit/vue'
+import '@formkit/themes/genesis';
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,10 +21,10 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const fb = initializeApp(firebaseConfig);
-const analytics = getAnalytics(fb);
 
 const app = createApp(App);
 
-app.use(createPinia());
-app.use(router);
+app.use(plugin, defaultConfig); // Formkit
+app.use(createPinia()); // Pinia
+app.use(router); // Vue Router
 app.mount('#app');

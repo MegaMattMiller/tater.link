@@ -64,8 +64,6 @@ const gradientFactory = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
-
 body {
   overflow-x: hidden;
 }
