@@ -11,6 +11,7 @@ interface UserData {
   links: Array<Link>;
   buttons: Array<Button>;
   user: string;
+  textColor: string;
 }
 
 interface Link {

@@ -1,5 +1,5 @@
 <template>
-  <a :href="data.url" target="_blank" tabindex="0" :alt="data.text">
+  <a :href="data.url" target="_blank" tabindex="0" :alt="data.text" :style="{ color: color }">
     <div class="button-wrapper">
       <p class="button-text">
         {{ data.text }}
@@ -12,6 +12,7 @@
 import type { Button } from '@/types';
 defineProps<{
   data: Button;
+  color: string;
 }>();
 </script>
 

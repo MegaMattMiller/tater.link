@@ -81,6 +81,7 @@ export const linkStore = defineStore('linkStore', () => {
       links: [],
       buttons: [],
       user: uid,
+      textColor: '#000000',
     } as UserData;
     return newCard;
   };

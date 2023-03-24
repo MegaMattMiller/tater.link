@@ -1,6 +1,6 @@
 <template>
   <a :href="data.url" target="_blank" :aria-label="altTextFactory">
-    <Icon class="social nodrag hvr-grow" :icon="iconData" />
+    <Icon class="social nodrag hvr-grow" :style="{ color: color }" :icon="iconData" />
   </a>
 </template>
 
@@ -12,10 +12,12 @@ import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
   data: Link;
+  color: string;
 }>();
 
 const iconData = computed(() => {
-  switch (props.data.icon) {
+  console.log('icon ', props.data.icon);
+  switch (parseInt(props.data.icon.toString())) {
     case SocialTypes.Twitter:
       return 'fa6-brands:twitter';
     case SocialTypes.Instagram:
@@ -59,7 +61,6 @@ const altTextFactory = computed(() => {
 
 <style scoped>
 .social {
-  color: #f9f9f9;
   font-size: clamp(20px, 10vw, 40px);
   text-align: center;
 }

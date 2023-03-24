@@ -1,16 +1,20 @@
 <template>
-  <div class="container" :style="{ backgroundColor: '#' + data?.bgColor, backgroundImage: gradientFactory }">
+  <div
+    class="container"
+    :style="{ backgroundColor: data?.bgColor, backgroundImage: gradientFactory, color: data?.textColor }"
+    v-if="data != undefined"
+  >
     <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
-    <h1 class="username nodrag">{{ data?.displayName }}</h1>
-    <h2 v-if="data?.desc != ''" class="desc nodrag">{{ data?.desc }}</h2>
-    <div class="social-container" v-if="data?.linksOnTop">
-      <SocialBadge v-for="(item, index) in data.links" v-bind:key="index" :data="item" />
+    <h1 class="username nodrag">{{ data.displayName }}</h1>
+    <h2 v-if="data?.desc != ''" class="desc nodrag">{{ data.desc }}</h2>
+    <div class="social-container" v-if="data.linksOnTop">
+      <SocialBadge v-for="(item, index) in data.links" v-bind:key="index" :data="item" :color="data.textColor" />
     </div>
     <div class="button-container" v-if="showButtons">
-      <LinkButton v-for="(item, index) in data?.buttons" v-bind:key="index" :data="item" />
+      <LinkButton v-for="(item, index) in data.buttons" v-bind:key="index" :data="item" :color="data.textColor" />
     </div>
-    <div class="social-container" v-if="!data?.linksOnTop">
-      <SocialBadge v-for="(item, index) in data?.links" v-bind:key="index" :data="item" />
+    <div class="social-container" v-if="!data.linksOnTop">
+      <SocialBadge v-for="(item, index) in data.links" v-bind:key="index" :data="item" :color="data.textColor" />
     </div>
   </div>
 </template>
@@ -86,6 +90,8 @@ const showButtons = computed(() => {
 
 const gradientFactory = computed(() => {
   let direction = 'to bottom';
+  console.log('gradient: ' + props.data?.gradient);
+  console.log(typeof props.data?.gradient);
   switch (props.data?.gradient) {
     case GradientDirections.toBottom:
       direction = 'to bottom';
@@ -100,10 +106,12 @@ const gradientFactory = computed(() => {
       direction = 'to left';
       break;
     default:
+      console.log('default');
       direction = 'to bottom';
       break;
   }
-  return `linear-gradient(${direction}, #${props.data?.bgColor}, #${props.data?.bgColorAlt})`;
+  console.log('direction: ' + direction);
+  return `linear-gradient(${direction}, ${props.data?.bgColor}, ${props.data?.bgColorAlt})`;
 });
 
 setupImage();
@@ -125,7 +133,6 @@ body {
 .username {
   font-family: 'Karla', sans-serif;
   text-align: center;
-  color: #f9f9f9;
   margin-bottom: 10px;
 }
 
@@ -133,7 +140,6 @@ body {
   font-family: 'Karla', sans-serif;
   text-align: center;
   margin-top: 0;
-  color: #f9f9f9;
 }
 
 .container {
