@@ -28,8 +28,6 @@ import { GradientDirections } from '@/utils/enums';
 import { getStorage, ref as fileRef, getDownloadURL } from 'firebase/storage';
 import { identicon } from 'minidenticons';
 
-// const props = defineProps(['data']);
-
 const props = defineProps({
   data: {
     type: Object as PropType<UserData | undefined>,
@@ -38,12 +36,6 @@ const props = defineProps({
 });
 
 const storage = getStorage();
-
-// const imagePath = computed(() => {
-//   if (props.data != undefined){
-//   // return `https://firebasestorage.googleapis.com/v0/b/taterlink-35917.appspot.com/o/images%2F${props.data?.iconGuid}?alt=media`;
-//   }
-// });
 
 let imagePath = ref('');
 
@@ -65,18 +57,22 @@ function setupImage() {
         switch (error.code) {
           case 'storage/object-not-found':
             // File doesn't exist
+            console.log('file not found');
             break;
           case 'storage/unauthorized':
             // User doesn't have permission to access the object
+            console.log('unauthorized');
             break;
           case 'storage/canceled':
             // User canceled the upload
+            console.log('canceled');
             break;
 
           // ...
 
           case 'storage/unknown':
             // Unknown error occurred, inspect the server response
+            console.log('unknown error');
             break;
         }
       });
