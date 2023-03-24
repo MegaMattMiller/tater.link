@@ -1,1 +1,9 @@
-"@megamatt/prettier-config"
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "arrowParens": "always",
+  "singleQuote": true,
+  "endOfLine": "auto",
+  "printWidth": 120
+}
