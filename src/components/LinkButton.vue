@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Button } from '@/stores/linkStore';
+import type { Button } from '@/types';
 defineProps<{
   data: Button;
 }>();

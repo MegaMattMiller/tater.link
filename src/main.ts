@@ -4,9 +4,8 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import { initializeApp } from 'firebase/app';
-import { plugin, defaultConfig } from '@formkit/vue'
+import { plugin, defaultConfig } from '@formkit/vue';
 import '@formkit/themes/genesis';
-
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries

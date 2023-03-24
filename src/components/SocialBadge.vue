@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Link } from '@/stores/linkStore';
+import type { Link } from '@/types';
 import { SocialTypes } from '@/utils/enums';
 import { Icon } from '@iconify/vue';
 

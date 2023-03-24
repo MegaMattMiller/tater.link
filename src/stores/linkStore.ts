@@ -1,6 +1,17 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { getFirestore, collection, query, where, getDocs, limit, doc, addDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  limit,
+  doc,
+  addDoc,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import type { UserData } from '@/types';
 
 export const linkStore = defineStore('linkStore', () => {
@@ -15,13 +26,13 @@ export const linkStore = defineStore('linkStore', () => {
   const getDataForCardName = async (cardName: string) => {
     let foundCard: UserData | undefined = undefined;
     const cardsRef = collection(firestore, collectionName);
-    const q = query(cardsRef, where("name", "==", cardName), limit(1));
+    const q = query(cardsRef, where('name', '==', cardName), limit(1));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       foundCard = doc.data() as UserData;
     });
-    console.log('foundCard', foundCard)
+    console.log('foundCard', foundCard);
     data.value = foundCard;
   };
 
@@ -29,7 +40,7 @@ export const linkStore = defineStore('linkStore', () => {
     let foundCard: UserData = {} as UserData;
     let didFindCard = false;
     const cardsRef = collection(firestore, collectionName);
-    const q = query(cardsRef, where("user", "==", uid), limit(1));
+    const q = query(cardsRef, where('user', '==', uid), limit(1));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
@@ -37,7 +48,7 @@ export const linkStore = defineStore('linkStore', () => {
       cardId.value = doc.id;
       didFindCard = true;
     });
-    console.log('foundCard', foundCard)
+    console.log('foundCard', foundCard);
     data.value = foundCard;
     return didFindCard;
   };
@@ -47,18 +58,17 @@ export const linkStore = defineStore('linkStore', () => {
     if (uid == '' || uid == undefined) return;
 
     const cardRef = doc(firestore, collectionName, cardId.value);
-    if (data.value != undefined)
-      await setDoc(cardRef, data.value, { merge: true });
+    if (data.value != undefined) await setDoc(cardRef, data.value, { merge: true });
   };
 
   const createNewCard = async (uid: string, username: string) => {
     const docRef = await addDoc(collection(firestore, collectionName), createDefaultCard(uid, username));
-    console.log("Document written with ID: ", docRef.id);
+    console.log('Document written with ID: ', docRef.id);
     return docRef;
   };
 
   const createDefaultCard = (uid: string, username: string) => {
-    var newCard: UserData = {
+    const newCard: UserData = {
       active: true,
       name: username,
       displayName: '',
