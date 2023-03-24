@@ -4,6 +4,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import { initializeApp } from 'firebase/app';
+import { getStorage } from "firebase/storage";
 import { plugin, defaultConfig } from '@formkit/vue';
 import '@formkit/themes/genesis';
 
@@ -19,7 +20,8 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_FIREBASE_APP_ID as string,
 };
 // Initialize Firebase
-const fb = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
+const storage = getStorage(firebase);
 
 const app = createApp(App);
 

@@ -49,12 +49,18 @@ import { ref } from 'vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 import { linkStore } from '@/stores/linkStore';
+import { getStorage, ref as storeRef, uploadBytes } from 'firebase/storage';
 
 const store = linkStore();
 const email = ref('');
 const password = ref('');
 const username = ref('');
 const errMsg = ref(); // ERROR MESSAGE
+// Get a reference to the storage service, which is used to create references in your storage bucket
+const storage = getStorage();
+
+// Create a storage reference from our storage service
+const storageRef = ref(storage);
 
 const router = useRouter(); // get a reference to our vue router
 const register = () => {

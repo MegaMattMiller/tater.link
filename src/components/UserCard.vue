@@ -16,11 +16,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed, type PropType, ref } from 'vue';
 import type { UserData } from '@/types';
 import SocialBadge from '@/components/SocialBadge.vue';
 import LinkButton from '@/components/LinkButton.vue';
 import { GradientDirections } from '@/utils/enums';
+import { getStorage, ref as fileRef, getDownloadURL } from 'firebase/storage';
+import { identicon } from 'minidenticons';
 
 // const props = defineProps(['data']);
 
@@ -31,9 +33,51 @@ const props = defineProps({
   },
 });
 
-const imagePath = computed(() => {
-  return `/avatars/${props.data?.iconGuid}.png`;
-});
+const storage = getStorage();
+
+// const imagePath = computed(() => {
+//   if (props.data != undefined){
+//   // return `https://firebasestorage.googleapis.com/v0/b/taterlink-35917.appspot.com/o/images%2F${props.data?.iconGuid}?alt=media`;
+//   }
+// });
+
+let imagePath = ref('');
+
+function setupImage() {
+  if (props.data?.iconGuid == undefined || props.data?.iconGuid == '') {
+    console.log('no image found, using identicon');
+    let svg = identicon(props.data?.user ?? 'default');
+    let blob = new Blob([svg], { type: 'image/svg+xml' });
+    imagePath.value = URL.createObjectURL(blob);
+  } else {
+    getDownloadURL(fileRef(storage, props.data?.iconGuid))
+      .then((url) => {
+        imagePath.value = url;
+      })
+      .catch((error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        console.log(error.code);
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+
+          // ...
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            break;
+        }
+      });
+  }
+}
 
 const showButtons = computed(() => {
   if (props.data?.buttons.length ?? 0 > 0) return true;
@@ -61,6 +105,8 @@ const gradientFactory = computed(() => {
   }
   return `linear-gradient(${direction}, #${props.data?.bgColor}, #${props.data?.bgColorAlt})`;
 });
+
+setupImage();
 </script>
 
 <style lang="scss" scoped>
