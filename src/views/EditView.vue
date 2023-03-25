@@ -63,8 +63,6 @@ import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 import { SocialTypes } from '@/utils/enums';
 import { useShare } from '@vueuse/core';
-import EditLink from '@/components/EditLink.vue';
-import EditButton from '@/components/EditButton.vue';
 
 const store = linkStore();
 const { data } = storeToRefs(store);
