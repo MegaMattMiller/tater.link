@@ -16,10 +16,10 @@
         type="text"
         name="username"
         id="username"
-        label="Username"
+        label="Unique Url"
         validation="required|length:4"
         v-model="username"
-        help="This will be your special URL!"
+        help="This will be your special URL! You can't change this later!"
       />
       <FormKit
         type="password"
@@ -41,6 +41,8 @@
         validation-label="Password confirmation"
       />
     </FormKit>
+    <h2 v-if="username != ''">Your card will be available at</h2>
+    <h2 v-if="username != ''">https://tater.link/{{ username }}</h2>
   </div>
 </template>
 
@@ -64,22 +66,28 @@ const storageRef = ref(storage);
 
 const router = useRouter(); // get a reference to our vue router
 const register = () => {
-  createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
-    .then((data) => {
-      console.log('Successfully registered!');
-      store.createNewCard(data.user.uid, username.value.toLowerCase()).then(() => {
-        router.push('/edit'); // redirect to the edit view
+  store.checkIfUsernameExists(username.value.toLowerCase()).then((exists) => {
+    if (exists) {
+      errMsg.value = 'That username is already taken.';
+      return;
+    }
+    createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
+      .then((data) => {
+        console.log('Successfully registered!');
+        store.createNewCard(data.user.uid, username.value.toLowerCase()).then(() => {
+          router.push('/edit'); // redirect to the edit view
+        });
+      })
+      .catch((error) => {
+        console.log(error.code);
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+          default:
+            errMsg.value = 'An account with that email already exists.';
+            break;
+        }
       });
-    })
-    .catch((error) => {
-      console.log(error.code);
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-        default:
-          errMsg.value = 'An account with that email already exists.';
-          break;
-      }
-    });
+  });
 };
 </script>
 
