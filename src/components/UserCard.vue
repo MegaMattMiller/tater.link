@@ -21,32 +21,29 @@
 
 <script setup lang="ts">
 import { computed, type PropType, ref } from 'vue';
-import type { UserData } from '@/types';
 import SocialBadge from '@/components/SocialBadge.vue';
 import LinkButton from '@/components/LinkButton.vue';
 import { GradientDirections } from '@/utils/enums';
 import { getStorage, ref as fileRef, getDownloadURL } from 'firebase/storage';
 import { identicon } from 'minidenticons';
-
-const props = defineProps({
-  data: {
-    type: Object as PropType<UserData | undefined>,
-    required: true,
-  },
-});
+import { storeToRefs } from 'pinia';
+import { linkStore } from '@/stores/linkStore';
 
 const storage = getStorage();
+
+const store = linkStore();
+const { data } = storeToRefs(store);
 
 let imagePath = ref('');
 
 function setupImage() {
-  if (props.data?.iconGuid == undefined || props.data?.iconGuid == '') {
+  if (data.value?.iconGuid == undefined || data.value?.iconGuid == '') {
     console.log('no image found, using identicon');
-    let svg = identicon(props.data?.user ?? 'default');
+    let svg = identicon(data.value?.user ?? 'default');
     let blob = new Blob([svg], { type: 'image/svg+xml' });
     imagePath.value = URL.createObjectURL(blob);
   } else {
-    getDownloadURL(fileRef(storage, props.data?.iconGuid))
+    getDownloadURL(fileRef(storage, data.value?.iconGuid))
       .then((url) => {
         imagePath.value = url;
       })
@@ -80,15 +77,15 @@ function setupImage() {
 }
 
 const showButtons = computed(() => {
-  if (props.data?.buttons.length ?? 0 > 0) return true;
+  if (data.value?.buttons.length ?? 0 > 0) return true;
   return false;
 });
 
 const gradientFactory = computed(() => {
   let direction = 'to bottom';
-  console.log('gradient: ' + props.data?.gradient);
-  console.log(typeof props.data?.gradient);
-  switch (props.data?.gradient) {
+  console.log('gradient: ' + data.value?.gradient);
+  console.log(typeof data.value?.gradient);
+  switch (parseInt(data.value?.gradient.toString() ?? '0')) {
     case GradientDirections.toBottom:
       direction = 'to bottom';
       break;
@@ -107,7 +104,7 @@ const gradientFactory = computed(() => {
       break;
   }
   console.log('direction: ' + direction);
-  return `linear-gradient(${direction}, ${props.data?.bgColor}, ${props.data?.bgColorAlt})`;
+  return `linear-gradient(${direction}, ${data.value?.bgColor}, ${data.value?.bgColorAlt})`;
 });
 
 setupImage();

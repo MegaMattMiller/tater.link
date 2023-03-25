@@ -1,6 +1,6 @@
 <template>
   <div v-if="!loading">
-    <UserCard :data="data" />
+    <UserCard />
   </div>
 </template>
 

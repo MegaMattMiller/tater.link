@@ -3,21 +3,33 @@
   <div class="wrapper">
     <div class="editor">
       <FormKit v-if="!loading && data != undefined" id="licenseForm" type="form" @submit="submitHandler">
-        <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="newDisplayName" />
-        <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="newDesc" />
-        <FormKit type="color" :value="newColor" label="Select a main color" v-model="newColor" />
-        <FormKit type="color" :value="newAltColor" label="Select an accent color" v-model="newAltColor" />
-        <FormKit type="color" :value="newTextColor" label="Select a text color" v-model="newTextColor" />
-        <FormKit type="radio" label="Gradient Direction" :options="gradientOptions" v-model="newGradient" />
+        <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
+        <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
+        <FormKit type="color" :value="data.bgColor" label="Select a main color" v-model="data.bgColor" />
+        <FormKit type="color" :value="data.bgColorAlt" label="Select an accent color" v-model="data.bgColorAlt" />
+        <FormKit type="color" :value="data.textColor" label="Select a text color" v-model="data.textColor" />
+        <FormKit type="radio" label="Gradient Direction" :options="gradientOptions" v-model="data.gradient" />
         <FormKit
           type="checkbox"
           label="Links on top of buttons?"
           name="links"
-          :value="newLinksOnTop"
-          v-model="newLinksOnTop"
+          :value="data.linksOnTop"
+          v-model="data.linksOnTop"
         />
-        <div v-for="(linkData, index) in newLinks" :key="index" class="link-group-wrapper">
-          <FormKit type="group" v-model="newLinks[index]" class="link-group">
+        <button @click.prevent="addLink"><Icon icon="fa6-regular:square-plus" /></button>
+        <div v-for="(linkData, index) in data.links" :key="index" class="link-group-wrapper">
+          <select v-model="data.links[index].icon">
+            <option
+              v-for="(iconName, index) in Object.keys(SocialTypes).filter((key) => isNaN(Number(key)))"
+              :key="index"
+              :value="index"
+            >
+              {{ iconName }}
+            </option>
+          </select>
+          <input type="text" v-model="linkData.url" />
+          <button @click.prevent="removeLink(index)"><Icon icon="fa6-regular:trash-can" /></button>
+          <!-- <FormKit type="group" v-model="data.links[index]" class="link-group">
             <FormKit type="select" label="Icon" name="icon">
               <option
                 v-for="(iconName, index) in Object.keys(SocialTypes).filter((key) => isNaN(Number(key)))"
@@ -28,25 +40,26 @@
               </option>
             </FormKit>
             <FormKit type="text" label="Link URL" name="url" validation="required" />
-          </FormKit>
+            <FormKit type="button" @click="removeLink(index)" style="cursor: pointer"
+              ><Icon icon="fa6-regular:trash-can"
+            /></FormKit>
+          </FormKit> -->
         </div>
         <FormKit type="file" label="Icon" name="icon" accept=".jpg,.png" />
       </FormKit>
     </div>
-    <UserCard v-if="!loading" :data="data" class="card" />
+    <UserCard v-if="!loading" class="card" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { onBeforeUnmount, ref, watch } from 'vue';
+import { onBeforeUnmount, ref } from 'vue';
 import { linkStore } from '@/stores/linkStore';
 import { storeToRefs } from 'pinia';
 import { getStorage, ref as storeRef, uploadBytes } from 'firebase/storage';
 import { Icon } from '@iconify/vue';
-import { setErrors } from '@formkit/vue';
-import type { Link, Button } from '@/types';
 import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 import { SocialTypes } from '@/utils/enums';
@@ -59,16 +72,6 @@ const { data } = storeToRefs(store);
 const router = useRouter();
 const loggedInUser = ref<User | null>(null);
 let loading = ref(true);
-
-let newDisplayName = ref('');
-let newDesc = ref('');
-let newColor = ref('#ffffff');
-let newAltColor = ref('#ffffff');
-let newGradient = ref(0);
-let newLinksOnTop = ref(false);
-let newLinks = ref<Link[]>([]);
-let newButtons = ref<Button[]>([]);
-let newTextColor = ref('#000000');
 
 const gradientOptions = {
   0: 'To Bottom',
@@ -112,66 +115,22 @@ function formatBytes(bytes: number, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-watch(newDisplayName, (newVal) => {
-  if (data.value != undefined) {
-    data.value.displayName = newVal;
-  }
-});
+function addLink() {
+  if (data.value == undefined) return;
+  console.log('add link');
+  data.value.links.push({
+    icon: '0',
+    url: '',
+  });
+}
 
-watch(newDesc, (newVal) => {
-  if (data.value != undefined) {
-    data.value.desc = newVal;
-  }
-});
-
-watch(newColor, (newVal) => {
-  console.log('new color ', newVal);
-  if (data.value != undefined) {
-    data.value.bgColor = newVal;
-  }
-});
-
-watch(newAltColor, (newVal) => {
-  console.log('new alt color ', newVal);
-  if (data.value != undefined) {
-    data.value.bgColorAlt = newVal;
-  }
-});
-
-watch(newGradient, (newVal: any) => {
-  console.log('new gradient ', newVal);
-  if (data.value != undefined) {
-    data.value.gradient = parseInt(newVal);
-  }
-});
-
-watch(newLinksOnTop, (newVal) => {
-  console.log('new links on top ', newVal);
-  if (data.value != undefined) {
-    data.value.linksOnTop = newVal;
-  }
-});
-
-watch(newLinks, (newVal: Array<Link>) => {
-  console.log('new links ', newVal);
-  if (data.value != undefined) {
-    data.value.links = newVal;
-  }
-});
-
-watch(newButtons, (newVal: Array<Button>) => {
-  console.log('new buttons ', newVal);
-  if (data.value != undefined) {
-    data.value.buttons = newVal;
-  }
-});
-
-watch(newTextColor, (newVal) => {
-  console.log('new text color ', newVal);
-  if (data.value != undefined) {
-    data.value.textColor = newVal;
-  }
-});
+function removeLink(index: number) {
+  if (data.value == undefined) return;
+  console.log('remove link ', index);
+  console.log('links ', data.value?.links);
+  data.value.links.splice(index, 1);
+  console.log('links after ', data.value?.links);
+}
 
 async function updateImage(file: File) {
   console.log('file ', file);
@@ -193,16 +152,6 @@ async function updateImage(file: File) {
 async function getData() {
   await store.getDataForUserUID(loggedInUser.value?.uid.toString() ?? '');
   if (data.value == null || data.value == undefined) router.push(`/`);
-
-  newDisplayName.value = data.value?.displayName ?? '';
-  newDesc.value = data.value?.desc ?? '';
-  newColor.value = data.value?.bgColor ?? '#ffffff';
-  newAltColor.value = data.value?.bgColorAlt ?? '#ffffff';
-  newGradient.value = data.value?.gradient ?? 0;
-  newLinksOnTop.value = data.value?.linksOnTop ?? false;
-  newLinks.value = data.value?.links ?? [];
-  newButtons.value = data.value?.buttons ?? [];
-  newTextColor.value = data.value?.textColor ?? '#000000';
   loading.value = false;
 }
 
@@ -221,8 +170,7 @@ onBeforeUnmount(() => {
   authListener();
 });
 
-function getIconForValue(value: number): string {
-  console.log('value ', value);
+function getIconName(value: string) {
   switch (value) {
     case SocialTypes.Twitter:
       return 'fa6-brands:twitter';
@@ -268,5 +216,6 @@ function getIconForValue(value: number): string {
 
 .link-group {
   width: 95%;
+  padding: 10px;
 }
 </style>

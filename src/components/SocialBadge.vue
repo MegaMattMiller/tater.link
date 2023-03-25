@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const iconData = computed(() => {
   console.log('icon ', props.data.icon);
-  switch (parseInt(props.data.icon.toString())) {
+  switch (props.data.icon.toString()) {
     case SocialTypes.Twitter:
       return 'fa6-brands:twitter';
     case SocialTypes.Instagram:

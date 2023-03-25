@@ -16,7 +16,7 @@ interface UserData {
 
 interface Link {
   url: string;
-  icon: number;
+  icon: string;
 }
 
 interface Button {
