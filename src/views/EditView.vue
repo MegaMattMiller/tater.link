@@ -44,6 +44,8 @@
         </div>
         <FormKit type="file" label="Icon" name="icon" accept=".jpg,.png" />
       </FormKit>
+      <FormKit type="button" @click.prevent="openCard">View your card live!</FormKit>
+      <FormKit type="button" @click.prevent="startShare">Share!</FormKit>
     </div>
     <UserCard v-if="!loading" class="card" />
   </div>
@@ -60,6 +62,7 @@ import { Icon } from '@iconify/vue';
 import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 import { SocialTypes } from '@/utils/enums';
+import { useShare } from '@vueuse/core';
 import EditLink from '@/components/EditLink.vue';
 import EditButton from '@/components/EditButton.vue';
 
@@ -87,11 +90,25 @@ const linkIconOptions = {
   6: 'Mastodon',
 };
 
+const { share, isSupported } = useShare();
+
+function startShare() {
+  share({
+    title: 'Tater Link Card',
+    text: 'Check out my Tater Link Card!',
+    url: `https://tater.link/${data.value?.name}`,
+  });
+}
+
 // Get a reference to the storage service, which is used to create references in your storage bucket
 const storage = getStorage();
 
 // Create a storage reference from our storage service
 // const storageRef = ref(storage);
+
+function openCard() {
+  router.push(`/${data.value?.name}`);
+}
 
 const submitHandler = async (newData: any) => {
   if (newData.icon.length > 0) {
