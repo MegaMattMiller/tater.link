@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import { initializeApp } from 'firebase/app';
-import { getStorage } from "firebase/storage";
+import { getStorage } from 'firebase/storage';
 import { plugin, defaultConfig } from '@formkit/vue';
 import '@formkit/themes/genesis';
 
