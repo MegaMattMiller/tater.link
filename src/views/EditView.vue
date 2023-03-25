@@ -16,21 +16,11 @@
           :value="data.linksOnTop"
           v-model="data.linksOnTop"
         />
-        <button @click.prevent="addLink"><Icon icon="fa6-regular:square-plus" /></button>
-        <div v-for="(linkData, index) in data.links" :key="index" class="link-group-wrapper">
-          <select v-model="data.links[index].icon">
-            <option
-              v-for="(iconName, index) in Object.keys(SocialTypes).filter((key) => isNaN(Number(key)))"
-              :key="index"
-              :value="index"
-            >
-              {{ iconName }}
-            </option>
-          </select>
-          <input type="text" v-model="linkData.url" />
-          <button @click.prevent="removeLink(index)"><Icon icon="fa6-regular:trash-can" /></button>
-          <!-- <FormKit type="group" v-model="data.links[index]" class="link-group">
-            <FormKit type="select" label="Icon" name="icon">
+        <div v-auto-animate>
+          <h2>Links</h2>
+          <button @click.prevent="addLink"><Icon icon="fa6-regular:square-plus" /></button>
+          <div v-for="(linkData, index) in data.links" :key="index" class="link-group-wrapper">
+            <select v-model="data.links[index].icon">
               <option
                 v-for="(iconName, index) in Object.keys(SocialTypes).filter((key) => isNaN(Number(key)))"
                 :key="index"
@@ -38,12 +28,19 @@
               >
                 {{ iconName }}
               </option>
-            </FormKit>
-            <FormKit type="text" label="Link URL" name="url" validation="required" />
-            <FormKit type="button" @click="removeLink(index)" style="cursor: pointer"
-              ><Icon icon="fa6-regular:trash-can"
-            /></FormKit>
-          </FormKit> -->
+            </select>
+            <input type="text" v-model="linkData.url" />
+            <button @click.prevent="removeLink(index)"><Icon icon="fa6-regular:trash-can" /></button>
+          </div>
+        </div>
+        <div v-auto-animate>
+          <h2>Buttons</h2>
+          <button @click.prevent="addButton"><Icon icon="fa6-regular:square-plus" /></button>
+          <div v-for="(buttonData, index) in data.buttons" :key="index" class="link-group-wrapper">
+            <input type="text" v-model="buttonData.text" placeholder="Button Text" />
+            <input type="text" v-model="buttonData.url" placeholder="Button URL" />
+            <button @click.prevent="removeButton(index)"><Icon icon="fa6-regular:trash-can" /></button>
+          </div>
         </div>
         <FormKit type="file" label="Icon" name="icon" accept=".jpg,.png" />
       </FormKit>
@@ -130,6 +127,23 @@ function removeLink(index: number) {
   console.log('links ', data.value?.links);
   data.value.links.splice(index, 1);
   console.log('links after ', data.value?.links);
+}
+
+function addButton() {
+  if (data.value == undefined) return;
+  console.log('add button');
+  data.value.buttons.push({
+    text: '',
+    url: '',
+  });
+}
+
+function removeButton(index: number) {
+  if (data.value == undefined) return;
+  console.log('remove button ', index);
+  console.log('buttons ', data.value?.buttons);
+  data.value.buttons.splice(index, 1);
+  console.log('buttons after ', data.value?.buttons);
 }
 
 async function updateImage(file: File) {

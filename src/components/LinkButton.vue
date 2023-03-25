@@ -1,5 +1,5 @@
 <template>
-  <a :href="data.url" target="_blank" tabindex="0" :alt="data.text" :style="{ color: color }">
+  <a :href="data.url" target="_blank" tabindex="0" :alt="data.text" :style="{ color: color }" class="hvr-grow">
     <div class="button-wrapper">
       <p class="button-text">
         {{ data.text }}

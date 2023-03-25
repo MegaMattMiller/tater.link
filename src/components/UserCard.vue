@@ -64,9 +64,6 @@ function setupImage() {
             // User canceled the upload
             console.log('canceled');
             break;
-
-          // ...
-
           case 'storage/unknown':
             // Unknown error occurred, inspect the server response
             console.log('unknown error');
@@ -133,6 +130,7 @@ body {
   font-family: 'Karla', sans-serif;
   text-align: center;
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .container {
@@ -149,6 +147,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .button-container {
@@ -158,6 +158,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
