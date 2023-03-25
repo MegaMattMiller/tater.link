@@ -17,7 +17,7 @@
         name="username"
         id="username"
         label="Unique Url"
-        validation="required|length:4"
+        validation="required|alpha|length:4"
         v-model="username"
         help="This will be your special URL! You can't change this later!"
       />
@@ -40,6 +40,7 @@
         validation="required|confirm"
         validation-label="Password confirmation"
       />
+      <FormKit type="checkbox" label="I Accept the Terms of Service" validation="accepted" />
     </FormKit>
     <h2 v-if="username != ''">Your card will be available at</h2>
     <h2 v-if="username != ''">https://tater.link/{{ username }}</h2>
