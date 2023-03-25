@@ -54,6 +54,8 @@ export const linkStore = defineStore('linkStore', () => {
   };
 
   const checkIfUsernameExists = async (username: string) => {
+    const forbiddenNames = ['edit', 'register', 'sign-in', 'nouser'];
+    if (forbiddenNames.includes(username)) return true;
     let foundCard: UserData = {} as UserData;
     let didFindCard = false;
     const cardsRef = collection(firestore, collectionName);
