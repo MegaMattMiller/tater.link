@@ -19,20 +19,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'vue-router'; // import router
+import { useRouter } from 'vue-router';
 
 const email = ref('');
 const password = ref('');
-const errMsg = ref(); // ERROR MESSAGE
+const errMsg = ref();
 
-const router = useRouter(); // get a reference to our vue router
+const router = useRouter();
 
 const signIn = () => {
-  // we also renamed this method
-  signInWithEmailAndPassword(getAuth(), email.value, password.value) // THIS LINE CHANGED
+  signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
       console.log('Successfully logged in!');
-      router.push('/edit'); // redirect to the edit view
+      router.push('/edit');
     })
     .catch((error) => {
       switch (error.code) {
