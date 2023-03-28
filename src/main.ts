@@ -6,7 +6,7 @@ import router from './router';
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { plugin, defaultConfig } from '@formkit/vue';
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import '@formkit/themes/genesis';
 
 // TODO: Add SDKs for Firebase products that you want to use
