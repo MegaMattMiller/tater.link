@@ -105,7 +105,8 @@ const storage = getStorage();
 // const storageRef = ref(storage);
 
 function openCard() {
-  router.push(`/${data.value?.name}`);
+  let url = `https://tater.link/${data.value?.name}`;
+  window.open(url, '_blank');
 }
 
 const submitHandler = async (newData: any) => {
