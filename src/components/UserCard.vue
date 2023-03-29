@@ -4,7 +4,7 @@
     :style="{ backgroundColor: data?.bgColor, backgroundImage: gradientFactory, color: data?.textColor }"
     v-if="data != undefined"
   >
-    <img :src="imagePath" class="avatar nodrag" alt="User Avatar" />
+    <img :src="imagePathOrLocal" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ data.displayName }}</h1>
     <h2 v-if="data?.desc != ''" class="desc nodrag">{{ data.desc }}</h2>
     <div class="social-container" v-if="data.linksOnTop">
@@ -32,7 +32,7 @@ import { linkStore } from '@/stores/linkStore';
 const storage = getStorage();
 
 const store = linkStore();
-const { data } = storeToRefs(store);
+const { data, previewIcon } = storeToRefs(store);
 
 let imagePath = ref('');
 
@@ -76,6 +76,11 @@ function setupImage() {
 const showButtons = computed(() => {
   if (data.value?.buttons.length ?? 0 > 0) return true;
   return false;
+});
+
+const imagePathOrLocal = computed(() => {
+  if (previewIcon.value == undefined) return imagePath.value;
+  return URL.createObjectURL(previewIcon.value);
 });
 
 const gradientFactory = computed(() => {

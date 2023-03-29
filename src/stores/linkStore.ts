@@ -16,6 +16,7 @@ import type { UserData } from '@/types';
 
 export const linkStore = defineStore('linkStore', () => {
   const data = ref<UserData>();
+  const previewIcon = ref<File>() || undefined;
   const foundData = ref(false);
   const cardId = ref('');
 
@@ -105,6 +106,7 @@ export const linkStore = defineStore('linkStore', () => {
 
   return {
     data,
+    previewIcon,
     foundData,
     getDataForCardName,
     getDataForUserUID,

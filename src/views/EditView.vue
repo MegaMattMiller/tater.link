@@ -2,7 +2,13 @@
   <NavBar class="nav-bar" />
   <div class="wrapper">
     <div class="editor">
-      <FormKit v-if="!loading && data != undefined" id="licenseForm" type="form" @submit="submitHandler">
+      <FormKit
+        v-if="!loading && data != undefined"
+        id="licenseForm"
+        type="form"
+        @submit="submitHandler"
+        @input="inputHandler"
+      >
         <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
         <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
         <FormKit type="color" :value="data.bgColor" label="Select a main color" v-model="data.bgColor" />
@@ -42,7 +48,19 @@
             <button @click.prevent="removeButton(index)"><Icon icon="fa6-regular:trash-can" /></button>
           </div>
         </div>
-        <FormKit type="file" label="Icon" name="icon" accept=".jpg,.png" />
+        <FormKit
+          type="file"
+          label="Icon"
+          name="icon"
+          accept=".jpg,.png"
+          help="A .jpg or .png no larger than 2MB. A square image works best!"
+          validation="sizeMB:5"
+          :validation-rules="{ sizeMB }"
+          :validation-messages="{
+            sizeMB: 'File must be less than 5MB',
+          }"
+          validation-visibility="live"
+        />
       </FormKit>
       <FormKit type="button" @click.prevent="openCard">View your card live!</FormKit>
       <FormKit type="button" @click.prevent="startShare">Share!</FormKit>
@@ -63,9 +81,10 @@ import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 import { SocialTypes } from '@/utils/enums';
 import { useShare } from '@vueuse/core';
+import type { UserData } from '@/types';
 
 const store = linkStore();
-const { data } = storeToRefs(store);
+const { data, previewIcon } = storeToRefs(store);
 // const route = useRoute();
 const router = useRouter();
 const loggedInUser = ref<User | null>(null);
@@ -116,6 +135,14 @@ const submitHandler = async (newData: any) => {
   await store.updateCardForUserUID(loggedInUser.value?.uid.toString() ?? '');
 };
 
+function inputHandler(newData: any) {
+  if (newData.icon.length > 0) {
+    previewIcon.value = newData.icon[0].file;
+  } else {
+    previewIcon.value = undefined;
+  }
+}
+
 function formatBytes(bytes: number, decimals = 2) {
   if (bytes === 0) return '0 Bytes';
 
@@ -130,7 +157,6 @@ function formatBytes(bytes: number, decimals = 2) {
 
 function addLink() {
   if (data.value == undefined) return;
-  console.log('add link');
   data.value.links.push({
     icon: '0',
     url: '',
@@ -139,15 +165,11 @@ function addLink() {
 
 function removeLink(index: number) {
   if (data.value == undefined) return;
-  console.log('remove link ', index);
-  console.log('links ', data.value?.links);
   data.value.links.splice(index, 1);
-  console.log('links after ', data.value?.links);
 }
 
 function addButton() {
   if (data.value == undefined) return;
-  console.log('add button');
   data.value.buttons.push({
     text: '',
     url: '',
@@ -156,14 +178,10 @@ function addButton() {
 
 function removeButton(index: number) {
   if (data.value == undefined) return;
-  console.log('remove button ', index);
-  console.log('buttons ', data.value?.buttons);
   data.value.buttons.splice(index, 1);
-  console.log('buttons after ', data.value?.buttons);
 }
 
 async function updateImage(file: File) {
-  console.log('file ', file);
   if (file.size > 5000000) {
     alert('file too large');
     return;
@@ -219,6 +237,13 @@ function getIconName(value: string) {
     default:
       return 'bi:globe';
   }
+}
+
+function sizeMB(node: any, group: string = '5') {
+  let maxSize = parseInt(group);
+  if (Number.isNaN(maxSize)) return true;
+  if (node.value.length == 0) return true;
+  return node.value[0].file.size < maxSize * 1024 * 1024;
 }
 </script>
 
