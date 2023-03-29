@@ -52,6 +52,14 @@ const signIn = () => {
   margin: 0 auto;
 }
 
+.form-wrapper h1 {
+  text-align: left;
+}
+
+.form-wrapper p {
+  text-align: left;
+}
+
 .error {
   color: red;
 }
