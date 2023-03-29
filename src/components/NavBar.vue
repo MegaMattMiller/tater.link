@@ -1,10 +1,10 @@
 <template>
   <nav class="nav-bar">
-    <router-link to="/"> Home </router-link>
-    <router-link to="/edit"> Edit </router-link>
-    <a v-if="isLoggedIn" @click.prevent="handleSignOut">Logout</a>
-    <router-link v-if="!isLoggedIn" to="/register">Register </router-link>
-    <router-link v-if="!isLoggedIn" to="/sign-in">Login </router-link>
+    <h1 class="header" @click="navigate('/')">Tater Link</h1>
+    <FormKit type="button" @click="navigate('/edit')" outer-class="nav-button">Edit</FormKit>
+    <FormKit type="button" @click="handleSignOut" v-if="isLoggedIn" outer-class="nav-button">Logout</FormKit>
+    <FormKit type="button" @click="navigate('/register')" v-if="!isLoggedIn" outer-class="nav-button">Register</FormKit>
+    <FormKit type="button" @click="navigate('/signin')" v-if="!isLoggedIn" outer-class="nav-button">Sign In</FormKit>
   </nav>
 </template>
 
@@ -32,13 +32,36 @@ const handleSignOut = () => {
   signOut(getAuth());
   router.push('/');
 };
+
+function navigate(path: string = '/') {
+  router.push(path);
+}
 </script>
 
 <style lang="scss">
 .nav-bar {
   display: flex;
   flex-direction: row;
-  align-items: start;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 0 10px 10px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+
+  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+}
+
+.nav-button {
+  margin: 0;
+}
+
+.header {
+  flex-grow: 2;
+  margin: 0;
+  padding-left: 10px;
+  cursor: pointer;
 }
 </style>

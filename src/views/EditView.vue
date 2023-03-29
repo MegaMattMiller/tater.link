@@ -246,25 +246,38 @@ function sizeMB(node: any, group: string = '5') {
   return node.value[0].file.size < maxSize * 1024 * 1024;
 }
 
-function sizeMessage({ name, args, node }: any) {
+function sizeMessage({ args }: any) {
   return `File size must be less than ${args[0]}MB`;
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
-  display: grid;
-  grid-template-columns: 300px 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
 }
 
 .editor {
   background-color: #fff;
-  width: 95%;
-  margin: 0 auto;
+  width: 50%;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
 }
 
 .card {
   width: 100%;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
 }
 
 .link-group-wrapper {
