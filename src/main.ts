@@ -6,6 +6,7 @@ import router from './router';
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { plugin, defaultConfig } from '@formkit/vue';
+import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import '@formkit/themes/genesis';
 
@@ -26,8 +27,16 @@ const storage = getStorage(firebase);
 
 const app = createApp(App);
 
-app.use(plugin, defaultConfig); // Formkit
-app.use(autoAnimatePlugin); // Formkit
+app.use(
+  plugin,
+  defaultConfig({
+    plugins: [
+      createAutoAnimatePlugin(),
+      createFloatingLabelsPlugin(),
+    ],
+  })
+); // Formkit
+app.use(autoAnimatePlugin); // FormKit AutoAnimate
 app.use(createPinia()); // Pinia
 app.use(router); // Vue Router
 app.mount('#app');
