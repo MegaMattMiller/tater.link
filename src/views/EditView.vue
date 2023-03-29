@@ -54,10 +54,10 @@
           name="icon"
           accept=".jpg,.png"
           help="A .jpg or .png no larger than 2MB. A square image works best!"
-          validation="sizeMB:5"
+          validation="sizeMB:2"
           :validation-rules="{ sizeMB }"
           :validation-messages="{
-            sizeMB: 'File must be less than 5MB',
+            sizeMB: sizeMessage,
           }"
           validation-visibility="live"
         />
@@ -244,6 +244,10 @@ function sizeMB(node: any, group: string = '5') {
   if (Number.isNaN(maxSize)) return true;
   if (node.value.length == 0) return true;
   return node.value[0].file.size < maxSize * 1024 * 1024;
+}
+
+function sizeMessage({ name, args, node }: any) {
+  return `File size must be less than ${args[0]}MB`;
 }
 </script>
 
