@@ -100,6 +100,23 @@ const register = () => {
 </script>
 
 <style lang="scss">
+@import '@/styles/mixins.scss';
+
+.form-wrapper form {
+  @include drop-shadow;
+  @include rounded-corners;
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 20px;
+  max-width: 25em;
+  background-color: #fff;
+}
+.submit-button {
+  width: 100% !important;
+}
+</style>
+
+<style lang="scss">
 .submit-button {
   width: 100% !important;
 }
