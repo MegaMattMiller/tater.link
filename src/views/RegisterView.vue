@@ -1,8 +1,15 @@
 <template>
   <div class="form-wrapper">
-    <h1>Create an Account</h1>
-    <p v-if="errMsg" class="error">{{ errMsg }}</p>
-    <FormKit type="form" @submit="register" submit-label="Create Account">
+    <FormKit
+      type="form"
+      @submit="register"
+      submit-label="Create Account"
+      :submit-attrs="{
+        inputClass: 'submit-button',
+      }"
+    >
+      <h1>Create an Account</h1>
+      <p v-if="errMsg" class="error">{{ errMsg }}</p>
       <FormKit
         type="text"
         name="email"
@@ -92,10 +99,22 @@ const register = () => {
 };
 </script>
 
+<style lang="scss">
+.submit-button {
+  width: 100% !important;
+}
+</style>
+
 <style lang="scss" scoped>
 .form-wrapper {
   width: 80%;
   margin: 0 auto;
+}
+
+.form-wrapper h1 {
+  width: 100%;
+  text-align: center;
+  margin-top: 0;
 }
 
 .error {

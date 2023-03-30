@@ -229,24 +229,23 @@ function sizeMessage({ args }: any) {
 
 .editor {
   @include drop-shadow;
+  @include rounded-corners;
   background-color: #fff;
   width: 50%;
   margin: 10px;
   padding: 10px;
-  border-radius: 10px;
 }
 
 .card {
   @include drop-shadow;
+  @include rounded-corners;
   width: 100%;
   margin: 10px;
   padding: 10px;
-  border-radius: 10px;
 }
 
 .link-group-wrapper {
   border: 1px solid #000;
-  border-radius: 10px;
   width: 95%;
 }
 

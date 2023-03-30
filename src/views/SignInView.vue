@@ -1,8 +1,15 @@
 <template>
   <div class="form-wrapper">
-    <h1>Login to Your Account</h1>
-    <p v-if="errMsg" class="error">{{ errMsg }}</p>
-    <FormKit type="form" @submit="signIn" submit-label="Login">
+    <FormKit
+      type="form"
+      @submit="signIn"
+      submit-label="Login"
+      :submit-attrs="{
+        inputClass: 'submit-button',
+      }"
+    >
+      <h1>Login to Your Account</h1>
+      <p v-if="errMsg" class="error">{{ errMsg }}</p>
       <FormKit type="text" name="email" id="email" label="Email" validation="required|email" v-model="email" />
       <FormKit
         type="password"
@@ -46,18 +53,37 @@ const signIn = () => {
 };
 </script>
 
+<style lang="scss">
+@import '@/styles/mixins.scss';
+
+.form-wrapper form {
+  @include drop-shadow;
+  @include rounded-corners;
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 20px;
+  max-width: 25em;
+  background-color: #fff;
+}
+.submit-button {
+  width: 100% !important;
+}
+</style>
+
 <style lang="scss" scoped>
 .form-wrapper {
   width: 80%;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-wrapper h1 {
-  text-align: left;
+  text-align: center;
+  margin-top: 0;
 }
 
 .form-wrapper p {
-  text-align: left;
+  text-align: center;
 }
 
 .error {

@@ -43,6 +43,7 @@ function navigate(path: string = '/') {
 
 .nav-bar {
   @include drop-shadow;
+  @include rounded-corners;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -50,7 +51,6 @@ function navigate(path: string = '/') {
   padding: 10px 0 10px 10px;
   margin: 10px;
   background-color: #f9f9f9;
-  border-radius: 10px;
 }
 
 .nav-button {
