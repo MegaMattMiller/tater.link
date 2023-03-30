@@ -3,18 +3,37 @@
     class="container"
     :style="{ backgroundColor: data?.bgColor, backgroundImage: gradientFactory, color: data?.textColor }"
     v-if="data != undefined"
+    v-auto-animate
   >
     <img :src="imagePathOrLocal" class="avatar nodrag" alt="User Avatar" />
     <h1 class="username nodrag">{{ data.displayName }}</h1>
     <h2 v-if="data?.desc != ''" class="desc nodrag">{{ data.desc }}</h2>
     <div class="social-container" v-if="data.linksOnTop">
-      <SocialBadge v-for="(item, index) in data.links" v-bind:key="index" :data="item" :color="data.textColor" />
+      <SocialBadge
+        v-auto-animate
+        v-for="(item, index) in data.links"
+        v-bind:key="index + 100"
+        :data="item"
+        :color="data.textColor"
+      />
     </div>
     <div class="button-container" v-if="showButtons">
-      <LinkButton v-for="(item, index) in data.buttons" v-bind:key="index" :data="item" :color="data.textColor" />
+      <LinkButton
+        v-auto-animate
+        v-for="(item, index) in data.buttons"
+        v-bind:key="index"
+        :data="item"
+        :color="data.textColor"
+      />
     </div>
     <div class="social-container" v-if="!data.linksOnTop">
-      <SocialBadge v-for="(item, index) in data.links" v-bind:key="index" :data="item" :color="data.textColor" />
+      <SocialBadge
+        v-auto-animate
+        v-for="(item, index) in data.links"
+        v-bind:key="index"
+        :data="item"
+        :color="data.textColor"
+      />
     </div>
   </div>
 </template>

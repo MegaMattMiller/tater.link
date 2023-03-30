@@ -1,11 +1,11 @@
 <template>
-  <a :href="data.url" target="_blank" :aria-label="altTextFactory">
-    <Icon class="social nodrag hvr-grow" :style="{ color: color }" :icon="iconData" />
+  <a :href="data.url" target="_blank" :aria-label="altTextFactory(data.icon_id)">
+    <Icon class="social nodrag hvr-grow" :style="{ color: color }" :icon="iconData(data.icon_id)" />
   </a>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { Link } from '@/types';
 import { SocialTypes } from '@/utils/enums';
 import { Icon } from '@iconify/vue';
@@ -15,9 +15,8 @@ const props = defineProps<{
   color: string;
 }>();
 
-const iconData = computed(() => {
-  console.log('icon ', props.data.icon);
-  switch (props.data.icon.toString()) {
+function iconData(id: string) {
+  switch (id) {
     case SocialTypes.Twitter:
       return 'fa6-brands:twitter';
     case SocialTypes.Instagram:
@@ -35,10 +34,10 @@ const iconData = computed(() => {
     default:
       return 'bi:globe';
   }
-});
+}
 
-const altTextFactory = computed(() => {
-  switch (props.data.icon) {
+function altTextFactory(id: string) {
+  switch (id) {
     case SocialTypes.Twitter:
       return 'Link to Twitter';
     case SocialTypes.Instagram:
@@ -56,7 +55,7 @@ const altTextFactory = computed(() => {
     default:
       return 'Link to Website';
   }
-});
+}
 </script>
 
 <style scoped>

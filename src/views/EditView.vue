@@ -1,71 +1,60 @@
 <template>
-  <NavBar class="nav-bar" />
-  <div class="wrapper">
-    <div class="editor">
-      <FormKit
-        v-if="!loading && data != undefined"
-        id="licenseForm"
-        type="form"
-        @submit="submitHandler"
-        @input="inputHandler"
-      >
-        <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
-        <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
-        <FormKit type="color" :value="data.bgColor" label="Select a main color" v-model="data.bgColor" />
-        <FormKit type="color" :value="data.bgColorAlt" label="Select an accent color" v-model="data.bgColorAlt" />
-        <FormKit type="color" :value="data.textColor" label="Select a text color" v-model="data.textColor" />
-        <FormKit type="radio" label="Gradient Direction" :options="gradientOptions" v-model="data.gradient" />
+  <div v-auto-animate>
+    <NavBar class="nav-bar" />
+    <div class="wrapper">
+      <div class="editor">
+        <h2>Editor</h2>
         <FormKit
-          type="checkbox"
-          label="Links on top of buttons?"
-          name="links"
-          :value="data.linksOnTop"
-          v-model="data.linksOnTop"
-        />
-        <div v-auto-animate>
-          <h2>Links</h2>
-          <button @click.prevent="addLink"><Icon icon="fa6-regular:square-plus" /></button>
-          <div v-for="(linkData, index) in data.links" :key="index" class="link-group-wrapper">
-            <select v-model="data.links[index].icon">
-              <option
-                v-for="(iconName, index) in Object.keys(SocialTypes).filter((key) => isNaN(Number(key)))"
-                :key="index"
-                :value="index"
-              >
-                {{ iconName }}
-              </option>
-            </select>
-            <input type="text" v-model="linkData.url" />
-            <button @click.prevent="removeLink(index)"><Icon icon="fa6-regular:trash-can" /></button>
-          </div>
-        </div>
-        <div v-auto-animate>
-          <h2>Buttons</h2>
-          <button @click.prevent="addButton"><Icon icon="fa6-regular:square-plus" /></button>
-          <div v-for="(buttonData, index) in data.buttons" :key="index" class="link-group-wrapper">
-            <input type="text" v-model="buttonData.text" placeholder="Button Text" />
-            <input type="text" v-model="buttonData.url" placeholder="Button URL" />
-            <button @click.prevent="removeButton(index)"><Icon icon="fa6-regular:trash-can" /></button>
-          </div>
-        </div>
-        <FormKit
-          type="file"
-          label="Icon"
-          name="icon"
-          accept=".jpg,.png"
-          help="A .jpg or .png no larger than 2MB. A square image works best!"
-          validation="sizeMB:2"
-          :validation-rules="{ sizeMB }"
-          :validation-messages="{
-            sizeMB: sizeMessage,
-          }"
-          validation-visibility="live"
-        />
-      </FormKit>
-      <FormKit type="button" @click.prevent="openCard">View your card live!</FormKit>
-      <FormKit type="button" @click.prevent="startShare">Share!</FormKit>
+          v-if="!loading && data != undefined"
+          id="cardForm"
+          type="form"
+          @submit="submitHandler"
+          @input="inputHandler"
+          name="data"
+        >
+          <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
+          <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
+          <FormKit type="color" :value="data.bgColor" label="Select a main color" v-model="data.bgColor" />
+          <FormKit type="color" :value="data.bgColorAlt" label="Select an accent color" v-model="data.bgColorAlt" />
+          <FormKit type="color" :value="data.textColor" label="Select a text color" v-model="data.textColor" />
+          <FormKit type="radio" label="Gradient Direction" :options="gradientOptions" v-model="data.gradient" />
+          <FormKit
+            type="checkbox"
+            label="Links on top of buttons?"
+            name="linksOnTop"
+            :value="data.linksOnTop"
+            v-model="data.linksOnTop"
+          />
+
+          <FormKit id="repeater" name="links" type="repeater" label="Badges" :value="data.links" min="0" max="10">
+            <FormKit type="select" label="Which country is the smallest?" name="icon_id" :options="linkIconOptions" />
+            <FormKit type="url" label="Url" name="url" validation="required|url" placeholder="Add site address" />
+          </FormKit>
+
+          <FormKit id="repeater" name="buttons" type="repeater" label="Buttons" :value="data.buttons" min="0" max="10">
+            <FormKit type="text" label="Text" name="text" validation="required" placeholder="Add button name" />
+            <FormKit type="url" label="URL" name="url" validation="required|url" placeholder="Add site address" />
+          </FormKit>
+
+          <FormKit
+            type="file"
+            label="Icon"
+            name="icon"
+            accept=".jpg,.png"
+            help="A .jpg or .png no larger than 2MB. A square image works best!"
+            validation="sizeMB:2"
+            :validation-rules="{ sizeMB }"
+            :validation-messages="{
+              sizeMB: sizeMessage,
+            }"
+            validation-visibility="live"
+          />
+        </FormKit>
+        <FormKit type="button" @click.prevent="openCard">View your card live!</FormKit>
+        <FormKit type="button" @click.prevent="startShare">Share!</FormKit>
+      </div>
+      <UserCard v-if="!loading" class="card" />
     </div>
-    <UserCard v-if="!loading" class="card" />
   </div>
 </template>
 
@@ -136,49 +125,21 @@ const submitHandler = async (newData: any) => {
 };
 
 function inputHandler(newData: any) {
+  console.log('newData ', newData);
+  if (newData == undefined || newData.icon == undefined) {
+    previewIcon.value = undefined;
+    return;
+  }
   if (newData.icon.length > 0) {
     previewIcon.value = newData.icon[0].file;
   } else {
     previewIcon.value = undefined;
   }
-}
-
-function formatBytes(bytes: number, decimals = 2) {
-  if (bytes === 0) return '0 Bytes';
-
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
-function addLink() {
-  if (data.value == undefined) return;
-  data.value.links.push({
-    icon: '0',
-    url: '',
-  });
-}
-
-function removeLink(index: number) {
-  if (data.value == undefined) return;
-  data.value.links.splice(index, 1);
-}
-
-function addButton() {
-  if (data.value == undefined) return;
-  data.value.buttons.push({
-    text: '',
-    url: '',
-  });
-}
-
-function removeButton(index: number) {
-  if (data.value == undefined) return;
-  data.value.buttons.splice(index, 1);
+  if (data.value != undefined) {
+    data.value.links = [...newData.links];
+    data.value.buttons = [...newData.buttons];
+    console.log('data.value.links ', data.value.links);
+  }
 }
 
 async function updateImage(file: File) {
@@ -241,7 +202,7 @@ function getIconName(value: string) {
 
 function sizeMB(node: any, group: string = '5') {
   let maxSize = parseInt(group);
-  if (Number.isNaN(maxSize)) return true;
+  if (Number.isNaN(maxSize)) return false;
   if (node.value.length == 0) return true;
   return node.value[0].file.size < maxSize * 1024 * 1024;
 }
