@@ -5,7 +5,7 @@
     v-if="data != undefined"
     v-auto-animate
   >
-    <img :src="imagePathOrLocal" class="avatar nodrag" alt="User Avatar" />
+    <img :src="imagePathOrLocal" class="avatar nodrag" aria-label="User Avatar" />
     <h1 class="username nodrag">{{ data.displayName }}</h1>
     <h2 v-if="data?.desc != ''" class="desc nodrag">{{ data.desc }}</h2>
     <div class="social-container" v-if="data.linksOnTop">
