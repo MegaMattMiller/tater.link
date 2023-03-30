@@ -41,13 +41,9 @@ body {
   margin: 0;
   font-family: 'Karla', sans-serif;
 
-  background: #36d1dc; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #5b86e5, #36d1dc); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    #5b86e5,
-    #36d1dc
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: #e5e5f7;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #e5e5f7 10px),
+    repeating-linear-gradient(#f0f0fd55, #d7d9ff);
 }
 
 .nodrag {
