@@ -39,7 +39,10 @@ function navigate(path: string = '/') {
 </script>
 
 <style lang="scss">
+@import '@/styles/mixins.scss';
+
 .nav-bar {
+  @include drop-shadow;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -48,10 +51,6 @@ function navigate(path: string = '/') {
   margin: 10px;
   background-color: #f9f9f9;
   border-radius: 10px;
-
-  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
 }
 
 .nav-button {

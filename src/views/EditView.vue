@@ -32,7 +32,13 @@
           </FormKit>
 
           <FormKit id="repeater" name="buttons" type="repeater" label="Buttons" :value="data.buttons" min="0" max="10">
-            <FormKit type="text" label="Text" name="text" validation="required" placeholder="Add button name" />
+            <FormKit
+              type="text"
+              label="Text"
+              name="text"
+              validation="required|length:3"
+              placeholder="Add button name"
+            />
             <FormKit type="url" label="URL" name="url" validation="required|url" placeholder="Add site address" />
           </FormKit>
 
@@ -213,6 +219,7 @@ function sizeMessage({ args }: any) {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins.scss';
 .wrapper {
   display: flex;
   flex-direction: row;
@@ -221,24 +228,20 @@ function sizeMessage({ args }: any) {
 }
 
 .editor {
+  @include drop-shadow;
   background-color: #fff;
   width: 50%;
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
 }
 
 .card {
+  @include drop-shadow;
   width: 100%;
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
-  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.34);
 }
 
 .link-group-wrapper {

@@ -132,11 +132,13 @@ setupImage();
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins.scss';
 body {
   overflow-x: hidden;
 }
 
 .avatar {
+  @include drop-shadow;
   width: 200px;
   height: 200px;
   border-radius: 50%;
