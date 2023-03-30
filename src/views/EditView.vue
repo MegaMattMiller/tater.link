@@ -11,6 +11,10 @@
           @submit="submitHandler"
           @input="inputHandler"
           name="data"
+          :submit-attrs="{
+            wrapperClass: 'submit-button-wrapper',
+            inputClass: 'submit-button',
+          }"
         >
           <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
           <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
@@ -56,8 +60,23 @@
             validation-visibility="live"
           />
         </FormKit>
-        <FormKit type="button" @click.prevent="openCard">View your card live!</FormKit>
-        <FormKit type="button" @click.prevent="startShare">Share!</FormKit>
+        <div class="preview-buttons">
+          <FormKit
+            input-class="submit-button"
+            wrapper-class="preview-button-wrapper"
+            type="button"
+            @click.prevent="openCard"
+            >View</FormKit
+          >
+          <FormKit
+            input-class="submit-button"
+            wrapper-class="preview-button-wrapper"
+            type="button"
+            @click.prevent="startShare"
+            v-if="isSupported"
+            >Share</FormKit
+          >
+        </div>
       </div>
       <UserCard v-if="!loading" class="card" />
     </div>
@@ -71,7 +90,6 @@ import { onBeforeUnmount, ref } from 'vue';
 import { linkStore } from '@/stores/linkStore';
 import { storeToRefs } from 'pinia';
 import { getStorage, ref as storeRef, uploadBytes } from 'firebase/storage';
-import { Icon } from '@iconify/vue';
 import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 import { SocialTypes } from '@/utils/enums';
@@ -218,6 +236,23 @@ function sizeMessage({ args }: any) {
 }
 </script>
 
+<style lang="scss">
+.submit-button {
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.submit-button-wrapper {
+  width: 80% !important;
+  margin: 0 auto !important;
+}
+
+.preview-button-wrapper {
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+</style>
+
 <style lang="scss" scoped>
 @import '@/styles/mixins.scss';
 .wrapper {
@@ -252,5 +287,14 @@ function sizeMessage({ args }: any) {
 .link-group {
   width: 95%;
   padding: 10px;
+}
+
+.preview-buttons {
+  width: 80%;
+  max-width: var(--fk-max-width-input);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 auto;
+  gap: 15px;
 }
 </style>
