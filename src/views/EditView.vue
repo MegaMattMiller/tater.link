@@ -27,7 +27,7 @@
           />
 
           <FormKit id="repeater" name="links" type="repeater" label="Badges" :value="data.links" min="0" max="10">
-            <FormKit type="select" label="Which country is the smallest?" name="icon_id" :options="linkIconOptions" />
+            <FormKit type="select" label="Icon" name="icon_id" :options="linkIconOptions" />
             <FormKit type="url" label="Url" name="url" validation="required|url" placeholder="Add site address" />
           </FormKit>
 
