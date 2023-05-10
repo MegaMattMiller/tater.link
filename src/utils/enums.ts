@@ -8,6 +8,7 @@ enum SocialTypes {
   Mastodon = '6',
   FurAffinity = '7',
   Dev = '8',
+  Medium = '9',
 }
 
 enum GradientDirections {

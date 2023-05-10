@@ -20,6 +20,8 @@ function iconFactory(id: string) {
       return 'ion:paw';
     case SocialTypes.Dev:
       return 'fa6-brands:dev';
+    case SocialTypes.Medium:
+      return 'mdi:medium';
     default:
       return 'bi:globe';
   }
@@ -45,6 +47,8 @@ function altTextFactory(id: string) {
       return 'Link to Fur Affinity';
     case SocialTypes.Dev:
       return 'Link to Dev.to';
+    case SocialTypes.Medium:
+      return 'Link to Medium';
     default:
       return 'Link to Website';
   }
@@ -70,6 +74,8 @@ function iconNameFactory(icon: number) {
       return 'Fur Affinity';
     case 8:
       return 'Dev';
+    case 9:
+      return 'Medium';
     default:
       return 'Website';
   }
