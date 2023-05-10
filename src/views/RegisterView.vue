@@ -114,9 +114,7 @@ const register = () => {
 .submit-button {
   width: 100% !important;
 }
-</style>
 
-<style lang="scss">
 .submit-button {
   width: 100% !important;
 }
