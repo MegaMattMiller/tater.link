@@ -42,8 +42,8 @@ body {
   font-family: 'Karla', sans-serif;
 
   background-color: #e5e5f7;
-  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #e5e5f7 10px),
-    repeating-linear-gradient(#f0f0fd55, #d7d9ff);
+  // background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #e5e5f7 10px),
+  //   repeating-linear-gradient(#f0f0fd55, #d7d9ff);
 }
 
 .nodrag {
