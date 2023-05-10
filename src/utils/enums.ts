@@ -7,6 +7,7 @@ enum SocialTypes {
   Email = '5',
   Mastodon = '6',
   FurAffinity = '7',
+  Dev = '8',
 }
 
 enum GradientDirections {
