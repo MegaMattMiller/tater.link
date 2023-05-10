@@ -1,13 +1,12 @@
 <template>
-  <a :href="data.url" target="_blank" :aria-label="altTextFactory(data.icon_id)">
+  <a :href="data.url" target="_blank" :aria-label="altText(data.icon_id)">
     <Icon class="social nodrag hvr-grow" :style="{ color: color }" :icon="iconData(data.icon_id)" />
   </a>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
 import type { Link } from '@/types';
-import { SocialTypes } from '@/utils/enums';
+import { iconFactory, altTextFactory } from '@/utils/transformers';
 import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
@@ -16,45 +15,11 @@ const props = defineProps<{
 }>();
 
 function iconData(id: string) {
-  switch (id) {
-    case SocialTypes.Twitter:
-      return 'fa6-brands:twitter';
-    case SocialTypes.Instagram:
-      return 'fa6-brands:instagram';
-    case SocialTypes.YouTube:
-      return 'fa6-brands:youtube';
-    case SocialTypes.Patreon:
-      return 'fa6-brands:patreon';
-    case SocialTypes.Twitch:
-      return 'fa6-brands:twitch';
-    case SocialTypes.Email:
-      return 'fa6-regular:envelope';
-    case SocialTypes.Mastodon:
-      return 'fa6-brands:mastodon';
-    default:
-      return 'bi:globe';
-  }
+  return iconFactory(id);
 }
 
-function altTextFactory(id: string) {
-  switch (id) {
-    case SocialTypes.Twitter:
-      return 'Link to Twitter';
-    case SocialTypes.Instagram:
-      return 'Link to Instagram';
-    case SocialTypes.YouTube:
-      return 'Link to YouTube';
-    case SocialTypes.Patreon:
-      return 'Link to Patreon';
-    case SocialTypes.Twitch:
-      return 'Link to Twitch';
-    case SocialTypes.Email:
-      return 'Link to Email';
-    case SocialTypes.Mastodon:
-      return 'Link to Mastodon';
-    default:
-      return 'Link to Website';
-  }
+function altText(id: string) {
+  return altTextFactory(id);
 }
 </script>
 

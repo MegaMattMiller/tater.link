@@ -86,14 +86,15 @@
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { onBeforeUnmount, ref } from 'vue';
+import { onBeforeUnmount, ref, computed } from 'vue';
 import { linkStore } from '@/stores/linkStore';
 import { storeToRefs } from 'pinia';
 import { getStorage, ref as storeRef, uploadBytes } from 'firebase/storage';
 import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
-import { SocialTypes } from '@/utils/enums';
+import { SocialTypes, GradientDirections } from '@/utils/enums';
 import { useShare } from '@vueuse/core';
+import { gradientNameFactory, iconNameFactory } from '@/utils/transformers';
 import type { UserData } from '@/types';
 
 const store = linkStore();
@@ -103,22 +104,24 @@ const router = useRouter();
 const loggedInUser = ref<User | null>(null);
 let loading = ref(true);
 
-const gradientOptions = {
-  0: 'To Bottom',
-  1: 'To Right',
-  2: 'To Top',
-  3: 'To Left',
-};
+const gradientOptions = computed(() => {
+  let options: any = {};
+  console.log('directions', GradientDirections);
+  for (let i = 0; i < Object.keys(GradientDirections).length; i++) {
+    console.log('directions', options);
+    options[i] = gradientNameFactory(i);
+  }
+  return options;
+});
 
-const linkIconOptions = {
-  0: 'Twitter',
-  1: 'Instagram',
-  2: 'YouTube',
-  3: 'Patreon',
-  4: 'Twitch',
-  5: 'Email',
-  6: 'Mastodon',
-};
+const linkIconOptions = computed(() => {
+  let options: any = {};
+  for (let i = 0; i < Object.keys(SocialTypes).length; i++) {
+    options[i] = iconNameFactory(i);
+  }
+  console.log('icons', options);
+  return options;
+});
 
 const { share, isSupported } = useShare();
 
@@ -202,27 +205,6 @@ onBeforeUnmount(() => {
   // clear up listener
   authListener();
 });
-
-function getIconName(value: string) {
-  switch (value) {
-    case SocialTypes.Twitter:
-      return 'fa6-brands:twitter';
-    case SocialTypes.Instagram:
-      return 'fa6-brands:instagram';
-    case SocialTypes.YouTube:
-      return 'fa6-brands:youtube';
-    case SocialTypes.Patreon:
-      return 'fa6-brands:patreon';
-    case SocialTypes.Twitch:
-      return 'fa6-brands:twitch';
-    case SocialTypes.Email:
-      return 'fa6-regular:envelope';
-    case SocialTypes.Mastodon:
-      return 'fa6-brands:mastodon';
-    default:
-      return 'bi:globe';
-  }
-}
 
 function sizeMB(node: any, group: string = '5') {
   let maxSize = parseInt(group);

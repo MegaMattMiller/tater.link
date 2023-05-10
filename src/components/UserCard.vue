@@ -106,7 +106,7 @@ const gradientFactory = computed(() => {
   let direction = 'to bottom';
   console.log('gradient: ' + data.value?.gradient);
   console.log(typeof data.value?.gradient);
-  switch (parseInt(data.value?.gradient.toString() ?? '0')) {
+  switch (data.value?.gradient.toString() ?? '0') {
     case GradientDirections.toBottom:
       direction = 'to bottom';
       break;

@@ -6,13 +6,14 @@ enum SocialTypes {
   Twitch = '4',
   Email = '5',
   Mastodon = '6',
+  FurAffinity = '7',
 }
 
 enum GradientDirections {
-  toBottom,
-  toRight,
-  toTop,
-  toLeft,
+  toBottom = '0',
+  toRight = '1',
+  toTop = '2',
+  toLeft = '3',
 }
 
 export { SocialTypes, GradientDirections };
