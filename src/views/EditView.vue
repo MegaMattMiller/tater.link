@@ -106,9 +106,9 @@ let loading = ref(true);
 
 const gradientOptions = computed(() => {
   let options: any = {};
-  console.log('directions', GradientDirections);
+  // console.log('directions', GradientDirections);
   for (let i = 0; i < Object.keys(GradientDirections).length; i++) {
-    console.log('directions', options);
+    // console.log('directions', options);
     options[i] = gradientNameFactory(i);
   }
   return options;
@@ -119,7 +119,7 @@ const linkIconOptions = computed(() => {
   for (let i = 0; i < Object.keys(SocialTypes).length; i++) {
     options[i] = iconNameFactory(i);
   }
-  console.log('icons', options);
+  // console.log('icons', options);
   return options;
 });
 
@@ -156,7 +156,7 @@ const submitHandler = async (newData: any) => {
 };
 
 function inputHandler(newData: any) {
-  console.log('newData ', newData);
+  // console.log('newData ', newData);
   if (newData == undefined || newData.icon == undefined) {
     previewIcon.value = undefined;
     return;
@@ -169,7 +169,7 @@ function inputHandler(newData: any) {
   if (data.value != undefined) {
     data.value.links = [...newData.links];
     data.value.buttons = [...newData.buttons];
-    console.log('data.value.links ', data.value.links);
+    // console.log('data.value.links ', data.value.links);
   }
 }
 
@@ -181,7 +181,7 @@ async function updateImage(file: File) {
   var extension = file.type.split('/')[1];
   const userImageRef = storeRef(storage, `images/${loggedInUser.value?.uid}.${extension}`);
   uploadBytes(userImageRef, file).then(() => {
-    console.log('Uploaded a blob or file!');
+    // console.log('Uploaded a blob or file!');
     if (data.value != undefined) {
       data.value.iconGuid = `images/${loggedInUser.value?.uid}.${extension}`;
       store.updateCardForUserUID(data.value.user);

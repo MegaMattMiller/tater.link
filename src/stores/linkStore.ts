@@ -33,7 +33,7 @@ export const linkStore = defineStore('linkStore', () => {
       // doc.data() is never undefined for query doc snapshots
       foundCard = doc.data() as UserData;
     });
-    console.log('foundCard', foundCard);
+    // console.log('foundCard', foundCard);
     data.value = foundCard;
   };
 
@@ -49,7 +49,7 @@ export const linkStore = defineStore('linkStore', () => {
       cardId.value = doc.id;
       didFindCard = true;
     });
-    console.log('foundCard', foundCard);
+    // console.log('foundCard', foundCard);
     data.value = foundCard;
     return didFindCard;
   };
@@ -67,12 +67,12 @@ export const linkStore = defineStore('linkStore', () => {
       foundCard = doc.data() as UserData;
       didFindCard = true;
     });
-    console.log('foundCard', foundCard);
+    // console.log('foundCard', foundCard);
     return didFindCard;
   };
 
   const updateCardForUserUID = async (uid: string) => {
-    console.log('updateCardForUserUID', uid);
+    // console.log('updateCardForUserUID', uid);
     if (uid == '' || uid == undefined) return;
 
     const cardRef = doc(firestore, collectionName, cardId.value);
@@ -81,7 +81,7 @@ export const linkStore = defineStore('linkStore', () => {
 
   const createNewCard = async (uid: string, username: string) => {
     const docRef = await addDoc(collection(firestore, collectionName), createDefaultCard(uid, username));
-    console.log('Document written with ID: ', docRef.id);
+    // console.log('Document written with ID: ', docRef.id);
     return docRef;
   };
 

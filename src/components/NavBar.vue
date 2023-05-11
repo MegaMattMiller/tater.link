@@ -46,7 +46,7 @@ onAuthStateChanged(getAuth(), function (user) {
   if (user) {
     isLoggedIn.value = true; // if we have a user
     loggedInUser.value = user;
-    console.log('user is logged in ', user.uid);
+    // console.log('user is logged in ', user.uid);
   } else {
     isLoggedIn.value = false; // if we do not
   }

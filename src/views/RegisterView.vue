@@ -81,13 +81,13 @@ const register = () => {
     }
     createUserWithEmailAndPassword(getAuth(), email.value, password.value) // need .value because ref()
       .then((data) => {
-        console.log('Successfully registered!');
+        // console.log('Successfully registered!');
         store.createNewCard(data.user.uid, username.value.toLowerCase()).then(() => {
           router.push('/edit'); // redirect to the edit view
         });
       })
       .catch((error) => {
-        console.log(error.code);
+        // console.log(error.code);
         switch (error.code) {
           case 'auth/email-already-in-use':
           default:

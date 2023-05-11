@@ -57,7 +57,7 @@ let imagePath = ref('');
 
 function setupImage() {
   if (data.value?.iconGuid == undefined || data.value?.iconGuid == '') {
-    console.log('no image found, using identicon');
+    // console.log('no image found, using identicon');
     let svg = identicon(data.value?.user ?? 'default');
     let blob = new Blob([svg], { type: 'image/svg+xml' });
     imagePath.value = URL.createObjectURL(blob);
@@ -73,11 +73,11 @@ function setupImage() {
         switch (error.code) {
           case 'storage/object-not-found':
             // File doesn't exist
-            console.log('file not found');
+            // console.log('file not found');
             break;
           case 'storage/unauthorized':
             // User doesn't have permission to access the object
-            console.log('unauthorized');
+            // console.log('unauthorized');
             break;
           case 'storage/canceled':
             // User canceled the upload
@@ -104,8 +104,8 @@ const imagePathOrLocal = computed(() => {
 
 const gradientFactory = computed(() => {
   let direction = 'to bottom';
-  console.log('gradient: ' + data.value?.gradient);
-  console.log(typeof data.value?.gradient);
+  // console.log('gradient: ' + data.value?.gradient);
+  // console.log(typeof data.value?.gradient);
   switch (data.value?.gradient.toString() ?? '0') {
     case GradientDirections.toBottom:
       direction = 'to bottom';
@@ -120,11 +120,11 @@ const gradientFactory = computed(() => {
       direction = 'to left';
       break;
     default:
-      console.log('default');
+      // console.log('default');
       direction = 'to bottom';
       break;
   }
-  console.log('direction: ' + direction);
+  // console.log('direction: ' + direction);
   return `linear-gradient(${direction}, ${data.value?.bgColor}, ${data.value?.bgColorAlt})`;
 });
 

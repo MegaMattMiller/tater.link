@@ -37,7 +37,7 @@ const router = useRouter();
 const signIn = () => {
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
-      console.log('Successfully logged in!');
+      // console.log('Successfully logged in!');
       router.push('/edit');
     })
     .catch((error) => {
