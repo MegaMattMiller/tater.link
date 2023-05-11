@@ -129,7 +129,7 @@ function startShare() {
   share({
     title: 'Tater Link Card',
     text: 'Check out my Tater Link Card!',
-    url: `https://tater.link/${data.value?.name}`,
+    url: getCardUrl(),
   });
 }
 
@@ -140,8 +140,12 @@ const storage = getStorage();
 // const storageRef = ref(storage);
 
 function openCard() {
+  window.open(getCardUrl(), '_blank');
+}
+
+function getCardUrl() {
   let url = `https://tater.link/${data.value?.name}`;
-  window.open(url, '_blank');
+  return url;
 }
 
 const submitHandler = async (newData: any) => {
