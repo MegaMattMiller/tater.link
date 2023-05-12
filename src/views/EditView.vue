@@ -78,7 +78,9 @@
           >
         </div>
       </div>
-      <UserCard v-if="!loading" class="card" />
+      <div class="card-wrapper">
+        <UserCard v-if="!loading" class="card" />
+      </div>
     </div>
   </div>
 </template>
@@ -257,12 +259,21 @@ function sizeMessage({ args }: any) {
   padding: 10px;
 }
 
-.card {
-  @include drop-shadow;
-  @include rounded-corners;
+.card-wrapper {
+  position: relative;
   width: 100%;
   margin: 10px;
   padding: 10px;
+}
+
+.card {
+  @include drop-shadow;
+  @include rounded-corners;
+  position: fixed;
+  width: 65%;
+  height: 88vh;
+  right: 0;
+  top: 11vh;
 }
 
 .link-group-wrapper {

@@ -1,6 +1,6 @@
 <template>
   <div v-if="!loading">
-    <UserCard />
+    <UserCard class="card" />
   </div>
 </template>
 
@@ -35,51 +35,7 @@ body {
   overflow-x: hidden;
 }
 
-.avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-top: 20px;
-}
-
-.username {
-  font-family: 'Karla', sans-serif;
-  text-align: center;
-  color: #f9f9f9;
-  margin-bottom: 10px;
-}
-
-.desc {
-  font-family: 'Karla', sans-serif;
-  text-align: center;
-  margin-top: 0;
-  color: #f9f9f9;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
+.card {
   min-height: 100vh;
-  width: 100vw;
-}
-
-.social-container {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.button-container {
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding-bottom: 20px;
 }
 </style>
