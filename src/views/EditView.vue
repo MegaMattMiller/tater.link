@@ -24,7 +24,7 @@
           <FormKit type="radio" label="Gradient Direction" :options="gradientOptions" v-model="data.gradient" />
           <FormKit
             type="checkbox"
-            label="Links on top of buttons?"
+            label="Badges above buttons?"
             name="linksOnTop"
             :value="data.linksOnTop"
             v-model="data.linksOnTop"
@@ -243,6 +243,7 @@ function sizeMessage({ args }: any) {
 
 <style lang="scss" scoped>
 @import '@/styles/mixins.scss';
+
 .wrapper {
   display: flex;
   flex-direction: row;
