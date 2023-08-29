@@ -9,6 +9,7 @@ enum SocialTypes {
   FurAffinity = '7',
   Dev = '8',
   Medium = '9',
+  BlueSky = '10',
 }
 
 enum GradientDirections {

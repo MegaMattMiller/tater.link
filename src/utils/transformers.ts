@@ -1,4 +1,4 @@
-import { SocialTypes } from "./enums";
+import { SocialTypes } from './enums';
 
 function iconFactory(id: string) {
   switch (id) {
@@ -22,6 +22,8 @@ function iconFactory(id: string) {
       return 'fa6-brands:dev';
     case SocialTypes.Medium:
       return 'mdi:medium';
+    case SocialTypes.BlueSky:
+      return 'ph:cloud-sun';
     default:
       return 'bi:globe';
   }
@@ -49,6 +51,8 @@ function altTextFactory(id: string) {
       return 'Link to Dev.to';
     case SocialTypes.Medium:
       return 'Link to Medium';
+    case SocialTypes.BlueSky:
+      return 'Link to BlueSky';
     default:
       return 'Link to Website';
   }
@@ -76,6 +80,8 @@ function iconNameFactory(icon: number) {
       return 'Dev';
     case 9:
       return 'Medium';
+    case 10:
+      return 'BlueSky';
     default:
       return 'Website';
   }
@@ -96,4 +102,4 @@ function gradientNameFactory(direction: number) {
   }
 }
 
-export { iconFactory, altTextFactory, iconNameFactory, gradientNameFactory }
+export { iconFactory, altTextFactory, iconNameFactory, gradientNameFactory };
