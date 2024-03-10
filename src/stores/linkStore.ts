@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import chalk from 'chalk';
 import { defineStore } from 'pinia';
 import {
   getFirestore,

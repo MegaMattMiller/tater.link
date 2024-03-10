@@ -22,7 +22,6 @@ import { useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { useShare } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { Icon } from '@iconify/vue';
 import { linkStore } from '@/stores/linkStore';
 
 const store = linkStore();

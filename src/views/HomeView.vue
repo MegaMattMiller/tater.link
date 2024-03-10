@@ -10,13 +10,12 @@ import { ref } from 'vue';
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
 import { storeToRefs } from 'pinia';
 import { linkStore } from '@/stores/linkStore';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 import NavBar from '@/components/NavBar.vue';
 import UserCard from '@/components/UserCard.vue';
 
 const store = linkStore();
-const route = useRoute();
 const router = useRouter();
 const loggedInUser = ref<User | null>(null);
 const isLoggedIn = ref(false);

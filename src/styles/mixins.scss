@@ -1,5 +1,8 @@
 @mixin drop-shadow {
-  box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 4%), 0px 1px 2px 0px rgba(0, 0, 0, 4%), 0 0 .5em rgba(0, 0, 0, 5%);
+  box-shadow:
+    0px 7px 20px 0px rgba(0, 0, 0, 4%),
+    0px 1px 2px 0px rgba(0, 0, 0, 4%),
+    0 0 0.5em rgba(0, 0, 0, 5%);
 }
 
 @mixin rounded-corners {
@@ -9,5 +12,4 @@
 
 @mixin dark-outline {
   outline: 1px solid #555;
-  ;
 }

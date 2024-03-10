@@ -97,7 +97,6 @@ import UserCard from '@/components/UserCard.vue';
 import { SocialTypes, GradientDirections } from '@/utils/enums';
 import { useShare } from '@vueuse/core';
 import { gradientNameFactory, iconNameFactory } from '@/utils/transformers';
-import type { UserData } from '@/types';
 
 const store = linkStore();
 const { data, previewIcon } = storeToRefs(store);

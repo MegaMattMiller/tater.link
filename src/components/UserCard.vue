@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType, ref } from 'vue';
+import { computed, ref } from 'vue';
 import SocialBadge from '@/components/SocialBadge.vue';
 import LinkButton from '@/components/LinkButton.vue';
 import { GradientDirections } from '@/utils/enums';
@@ -63,10 +63,10 @@ function setupImage() {
     imagePath.value = URL.createObjectURL(blob);
   } else {
     getDownloadURL(fileRef(storage, data.value?.iconGuid))
-      .then((url) => {
+      .then((url: string) => {
         imagePath.value = url;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         // A full list of error codes is available at
         // https://firebase.google.com/docs/storage/web/handle-errors
         console.log(error.code);

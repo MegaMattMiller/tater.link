@@ -5,9 +5,9 @@ import App from './App.vue';
 import router from './router';
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
-import { createProPlugin, inputs } from '@formkit/pro'
+import { createProPlugin, inputs } from '@formkit/pro';
 import { plugin, defaultConfig } from '@formkit/vue';
-import { createAutoAnimatePlugin, createFloatingLabelsPlugin } from '@formkit/addons';
+import { createAutoAnimatePlugin } from '@formkit/addons';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import '@formkit/themes/genesis';
 import '@formkit/pro/genesis';
@@ -27,18 +27,15 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const storage = getStorage(firebase);
 
-const pro = createProPlugin(import.meta.env.VITE_APP_FORMKIT_KEY, inputs)
+const pro = createProPlugin(import.meta.env.VITE_APP_FORMKIT_KEY, inputs);
 
 const app = createApp(App);
 
 app.use(
   plugin,
   defaultConfig({
-    plugins: [
-      pro,
-      createAutoAnimatePlugin(),
-    ],
-  })
+    plugins: [pro, createAutoAnimatePlugin()],
+  }),
 ); // Formkit
 app.use(autoAnimatePlugin); // FormKit AutoAnimate
 app.use(createPinia()); // Pinia

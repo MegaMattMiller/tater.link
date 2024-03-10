@@ -8,9 +8,6 @@
 import { ref } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
 import { getAuth, onAuthStateChanged, signOut, type User } from 'firebase/auth';
-import { linkStore } from '@/stores/linkStore';
-
-const store = linkStore();
 
 const router = useRouter();
 const isLoggedIn = ref(true);
