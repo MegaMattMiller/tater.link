@@ -23,7 +23,7 @@ function iconFactory(id: string) {
     case SocialTypes.Medium:
       return 'mdi:medium';
     case SocialTypes.BlueSky:
-      return 'ph:cloud-sun';
+      return 'ri:bluesky-fill';
     default:
       return 'bi:globe';
   }
