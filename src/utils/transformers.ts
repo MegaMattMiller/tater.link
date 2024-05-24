@@ -24,6 +24,10 @@ function iconFactory(id: string) {
       return 'mdi:medium';
     case SocialTypes.BlueSky:
       return 'ri:bluesky-fill';
+    case SocialTypes.LinkedIn:
+      return 'fa6-brands:linkedin';
+    case SocialTypes.SmugMug:
+      return 'simple-icons:smugmug';
     default:
       return 'bi:globe';
   }
@@ -53,6 +57,10 @@ function altTextFactory(id: string) {
       return 'Link to Medium';
     case SocialTypes.BlueSky:
       return 'Link to BlueSky';
+    case SocialTypes.LinkedIn:
+      return 'Link to LinkedIn';
+    case SocialTypes.SmugMug:
+      return 'Link to SmugMug';
     default:
       return 'Link to Website';
   }
@@ -60,28 +68,32 @@ function altTextFactory(id: string) {
 
 function iconNameFactory(icon: number) {
   switch (icon) {
-    case 0:
+    case parseInt(SocialTypes.Twitter):
       return 'Twitter';
-    case 1:
+    case parseInt(SocialTypes.Instagram):
       return 'Instagram';
-    case 2:
+    case parseInt(SocialTypes.YouTube):
       return 'Youtube';
-    case 3:
+    case parseInt(SocialTypes.Patreon):
       return 'Patreon';
-    case 4:
+    case parseInt(SocialTypes.Twitch):
       return 'Twitch';
-    case 5:
+    case parseInt(SocialTypes.Email):
       return 'Email';
-    case 6:
+    case parseInt(SocialTypes.Mastodon):
       return 'Mastodon';
-    case 7:
+    case parseInt(SocialTypes.FurAffinity):
       return 'Fur Affinity';
-    case 8:
+    case parseInt(SocialTypes.Dev):
       return 'Dev';
-    case 9:
+    case parseInt(SocialTypes.Medium):
       return 'Medium';
-    case 10:
+    case parseInt(SocialTypes.BlueSky):
       return 'BlueSky';
+    case parseInt(SocialTypes.LinkedIn):
+      return 'LinkedIn';
+    case parseInt(SocialTypes.SmugMug):
+      return 'SmugMug';
     default:
       return 'Website';
   }

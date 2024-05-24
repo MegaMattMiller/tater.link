@@ -10,6 +10,8 @@ enum SocialTypes {
   Dev = '8',
   Medium = '9',
   BlueSky = '10',
+  LinkedIn = '11',
+  SmugMug = '12',
 }
 
 enum GradientDirections {
