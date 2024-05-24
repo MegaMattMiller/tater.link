@@ -15,6 +15,7 @@
             wrapperClass: 'submit-button-wrapper',
             inputClass: 'submit-button',
           }"
+          submit-label="Save"
         >
           <FormKit type="text" label="Display Name" name="name" validation="length:3" v-model="data.displayName" />
           <FormKit type="text" label="Description" name="desc" validation="length:3" v-model="data.desc" />
