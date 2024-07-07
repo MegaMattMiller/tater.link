@@ -12,6 +12,7 @@ enum SocialTypes {
   BlueSky = '10',
   LinkedIn = '11',
   SmugMug = '12',
+  Gumroad = '13',
 }
 
 enum GradientDirections {

@@ -28,6 +28,8 @@ function iconFactory(id: string) {
       return 'fa6-brands:linkedin';
     case SocialTypes.SmugMug:
       return 'simple-icons:smugmug';
+    case SocialTypes.Gumroad:
+      return 'simple-icons:gumroad';
     default:
       return 'bi:globe';
   }
@@ -61,6 +63,8 @@ function altTextFactory(id: string) {
       return 'Link to LinkedIn';
     case SocialTypes.SmugMug:
       return 'Link to SmugMug';
+    case SocialTypes.Gumroad:
+      return 'Link to Gumroad';
     default:
       return 'Link to Website';
   }
@@ -94,6 +98,8 @@ function iconNameFactory(icon: number) {
       return 'LinkedIn';
     case parseInt(SocialTypes.SmugMug):
       return 'SmugMug';
+    case parseInt(SocialTypes.Gumroad):
+      return 'Gumroad';
     default:
       return 'Website';
   }
