@@ -30,6 +30,8 @@ function iconFactory(id: string) {
       return 'simple-icons:smugmug';
     case SocialTypes.Gumroad:
       return 'simple-icons:gumroad';
+    case SocialTypes.KoFi:
+      return 'simple-icons:kofi';
     default:
       return 'bi:globe';
   }
@@ -65,6 +67,8 @@ function altTextFactory(id: string) {
       return 'Link to SmugMug';
     case SocialTypes.Gumroad:
       return 'Link to Gumroad';
+    case SocialTypes.KoFi:
+      return 'Link to Ko-Fi';
     default:
       return 'Link to Website';
   }
@@ -100,6 +104,8 @@ function iconNameFactory(icon: number) {
       return 'SmugMug';
     case parseInt(SocialTypes.Gumroad):
       return 'Gumroad';
+    case parseInt(SocialTypes.KoFi):
+      return 'Ko-Fi';
     default:
       return 'Website';
   }

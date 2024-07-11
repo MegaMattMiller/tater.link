@@ -13,6 +13,7 @@ enum SocialTypes {
   LinkedIn = '11',
   SmugMug = '12',
   Gumroad = '13',
+  KoFi = '14',
 }
 
 enum GradientDirections {
