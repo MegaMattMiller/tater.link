@@ -32,6 +32,8 @@ function iconFactory(id: string) {
       return 'simple-icons:gumroad';
     case SocialTypes.KoFi:
       return 'simple-icons:kofi';
+    case SocialTypes.Discord:
+      return 'fa6-brands:discord';
     default:
       return 'bi:globe';
   }
@@ -69,6 +71,8 @@ function altTextFactory(id: string) {
       return 'Link to Gumroad';
     case SocialTypes.KoFi:
       return 'Link to Ko-Fi';
+    case SocialTypes.Discord:
+      return 'Link to Discord Profile';
     default:
       return 'Link to Website';
   }
@@ -106,6 +110,8 @@ function iconNameFactory(icon: number) {
       return 'Gumroad';
     case parseInt(SocialTypes.KoFi):
       return 'Ko-Fi';
+    case parseInt(SocialTypes.Discord):
+      return 'Discord';
     default:
       return 'Website';
   }

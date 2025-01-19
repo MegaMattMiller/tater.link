@@ -63,6 +63,10 @@ describe('iconFactory', () => {
     expect(iconFactory(SocialTypes.KoFi)).toBe('simple-icons:kofi');
   });
 
+  it('should return correct icon for Discord', () => {
+    expect(iconFactory(SocialTypes.Discord)).toBe('fa6-brands:discord');
+  });
+
   it('should return default icon for unknown type', () => {
     expect(iconFactory('unknown')).toBe('bi:globe');
   });
@@ -124,6 +128,11 @@ describe('altTextFactory', () => {
   it('should return correct alt text for KoFi', () => {
     expect(altTextFactory(SocialTypes.KoFi)).toBe('Link to Ko-Fi');
   });
+
+  it('should return correct alt text for Discord', () => {
+    expect(altTextFactory(SocialTypes.Discord)).toBe('Link to Discord Profile');
+  });
+
   it('should return default alt text for unknown type', () => {
     expect(altTextFactory('unknown')).toBe('Link to Website');
   });
@@ -188,6 +197,10 @@ describe('iconNameFactory', () => {
 
   it('should return correct name for KoFi', () => {
     expect(iconNameFactory(parseInt(SocialTypes.KoFi))).toBe('Ko-Fi');
+  });
+
+  it('should return correct name for Discord', () => {
+    expect(iconNameFactory(parseInt(SocialTypes.Discord))).toBe('Discord');
   });
 
   it('should return default name for unknown type', () => {

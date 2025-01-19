@@ -14,6 +14,7 @@ enum SocialTypes {
   SmugMug = '12',
   Gumroad = '13',
   KoFi = '14',
+  Discord = '15',
 }
 
 enum GradientDirections {

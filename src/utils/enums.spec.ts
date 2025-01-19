@@ -18,6 +18,7 @@ describe('SocialTypes', () => {
     expect(SocialTypes.SmugMug).toBe('12');
     expect(SocialTypes.Gumroad).toBe('13');
     expect(SocialTypes.KoFi).toBe('14');
+    expect(SocialTypes.Discord).toBe('15');
   });
 });
 
