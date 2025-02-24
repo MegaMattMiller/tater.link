@@ -34,6 +34,10 @@ function iconFactory(id: string) {
       return 'simple-icons:kofi';
     case SocialTypes.Discord:
       return 'fa6-brands:discord';
+    case SocialTypes.Telegram:
+      return 'fa6-brands:telegram';
+    case SocialTypes.Signal:
+      return 'fa6-brands:signal-messenger';
     default:
       return 'bi:globe';
   }
@@ -73,6 +77,10 @@ function altTextFactory(id: string) {
       return 'Link to Ko-Fi';
     case SocialTypes.Discord:
       return 'Link to Discord Profile';
+    case SocialTypes.Telegram:
+      return 'Link to Telegram';
+    case SocialTypes.Signal:
+      return 'Link to Signal';
     default:
       return 'Link to Website';
   }
@@ -112,6 +120,10 @@ function iconNameFactory(icon: number) {
       return 'Ko-Fi';
     case parseInt(SocialTypes.Discord):
       return 'Discord';
+    case parseInt(SocialTypes.Telegram):
+      return 'Telegram';
+    case parseInt(SocialTypes.Signal):
+      return 'Signal';
     default:
       return 'Website';
   }

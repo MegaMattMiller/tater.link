@@ -15,6 +15,8 @@ enum SocialTypes {
   Gumroad = '13',
   KoFi = '14',
   Discord = '15',
+  Telegram = '16',
+  Signal = '17',
 }
 
 enum GradientDirections {
